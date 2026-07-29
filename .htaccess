@@ -1,0 +1,10 @@
+# Loxley Roofing and Construction — server rules
+
+# Canonical host: 301-redirect www -> non-www, preserving https, path and query.
+# (HTTP->HTTPS is already handled at the Hostinger/CDN edge, so we deliberately
+#  do NOT add an %{HTTPS} rule here — behind a CDN that can cause a redirect loop.)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.loxleyconstruction\.com$ [NC]
+  RewriteRule ^(.*)$ https://loxleyconstruction.com/$1 [R=301,L]
+</IfModule>
