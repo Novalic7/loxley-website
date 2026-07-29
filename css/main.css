@@ -1631,27 +1631,49 @@ html.reveal-on [data-reveal].is-revealed {
 
 /* ==========================================================================
    Nav dropdown — groups roofing / commercial / gutters under one "Roofing" tab
-   Pure CSS (hover + :focus-within), so it works with no JS on every page.
+   Click-to-open via nav.js (.open class), with a :focus-within fallback when
+   JS is unavailable. See js/nav.js.
    ========================================================================== */
 .nav-dd { position: relative; }
-.nav-dd > a { display: inline-flex; align-items: center; gap: .3rem; }
+/* The toggle is a <button> styled to match the other desktop nav links. */
+.nav-dd-toggle {
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: none; border: 0; margin: 0; cursor: pointer;
+  font-family: inherit; font-size: var(--step--1); font-weight: 500;
+  letter-spacing: .04em; color: rgba(243, 240, 233, .78);
+  padding: .35rem 0; position: relative;
+  transition: color .35s var(--ease-out);
+}
+.nav-dd-toggle::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: 0;
+  height: 1px; background: var(--brass); transition: right .4s var(--ease-out);
+}
+.nav-dd-toggle:hover, .nav-dd-toggle.is-active, .nav-dd.open .nav-dd-toggle { color: var(--paper); }
+.nav-dd-toggle:hover::after, .nav-dd-toggle.is-active::after, .nav-dd.open .nav-dd-toggle::after { right: 0; }
 .nav-caret { font-size: .6em; transition: transform .3s var(--ease-out); }
-.nav-dd:hover .nav-caret, .nav-dd:focus-within .nav-caret { transform: rotate(180deg); }
+.nav-dd.open .nav-caret { transform: rotate(180deg); }
+html:not(.nav-js) .nav-dd:focus-within .nav-caret { transform: rotate(180deg); }
 .nav-dd-menu {
-  position: absolute; top: 100%; left: 0; min-width: 232px;
+  position: absolute; top: 100%; left: 0; min-width: 208px;
   display: flex; flex-direction: column;
   background: rgba(17, 19, 21, .97);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   border: 1px solid var(--line-soft); border-radius: 6px;
   padding: .45rem; margin-top: .7rem;
-  opacity: 0; visibility: hidden; transform: translateY(6px);
-  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility 0s linear .25s;
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(6px);
+  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility .25s;
   z-index: 210; box-shadow: 0 22px 55px -22px rgba(0, 0, 0, .65);
 }
 .nav-dd-menu::before { content: ""; position: absolute; top: -.7rem; left: 0; right: 0; height: .7rem; }
-.nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu {
-  opacity: 1; visibility: visible; transform: translateY(0);
-  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out);
+/* JS mode: only the .open class (from the click toggle) reveals the menu. */
+.nav-dd.open .nav-dd-menu {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
+  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility 0s;
+}
+/* No-JS fallback only: reveal on keyboard focus. */
+html:not(.nav-js) .nav-dd:focus-within .nav-dd-menu {
+  opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0);
+  transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility 0s;
 }
 .nav-desktop .nav-dd-menu a {
   display: block; padding: .55rem .85rem; border-radius: 4px;

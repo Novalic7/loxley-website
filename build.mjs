@@ -12,10 +12,33 @@
    ========================================================================== */
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SITE = "https://loxleyconstruction.com"; // production domain (Hostinger)
+
+/* Content-hash cache-busting. Every local CSS/JS URL gets a ?v=<hash> token
+   derived from the file's contents, so a change produces a new URL that
+   browsers and the CDN must re-fetch — while unchanged files keep their token
+   (and stay cached). This is what stops "I pushed but the old file is stuck". */
+const _hashCache = {};
+function assetHash(rel) {
+  const key = "/" + rel.replace(/^\//, "").split("?")[0];
+  if (!(key in _hashCache)) {
+    try {
+      const buf = fs.readFileSync(path.join(ROOT, key.slice(1)));
+      _hashCache[key] = crypto.createHash("sha1").update(buf).digest("hex").slice(0, 8);
+    } catch {
+      _hashCache[key] = "0";
+    }
+  }
+  return _hashCache[key];
+}
+function assetVer(rel) {
+  const clean = rel.split("?")[0];
+  return `${clean}?v=${assetHash(clean)}`;
+}
 
 const BIZ = {
   name: "Loxley Roofing and Construction",
@@ -43,17 +66,14 @@ const nav = [
 ];
 
 // Roofing, commercial roofing and gutters/exteriors are one trade, so they live
-// under a single "Roofing" dropdown instead of three top-level tabs. The pages
-// themselves stay separate (each ranks for its own keyword).
+// under a single "Roofing" dropdown instead of three top-level tabs. The menu is
+// kept deliberately short — three clear choices. Each destination page stays a
+// full, separate page (and ranks for its own keyword); the deeper roofing pages
+// (repair, storm, insurance, inspection) are reached from the Residential hub.
 const roofingMenu = [
-  ["/roofing/", "Roofing Overview"],
-  ["/roofing/roof-replacement/", "Roof Replacement"],
-  ["/roofing/roof-repair/", "Roof Repair"],
-  ["/roofing/storm-damage/", "Storm Damage"],
-  ["/roofing/insurance-claims/", "Insurance Claims"],
-  ["/commercial-roofing/", "Commercial Roofing"],
-  ["/gutters-and-exteriors/", "Gutters & Exteriors"],
-  ["/roofing/free-inspection/", "Free Inspection"]
+  ["/roofing/", "Residential"],
+  ["/commercial-roofing/", "Commercial"],
+  ["/gutters-and-exteriors/", "Exteriors & Gutters"]
 ];
 const ROOFING_PATHS = ["/roofing/", "/commercial-roofing/", "/gutters-and-exteriors/"];
 
@@ -63,10 +83,10 @@ function header(page) {
   const roofingActive = ROOFING_PATHS.some((p) => url.startsWith(p));
   const navHtml = nav.map(([h, t]) => {
     if (h === "/roofing/") {
-      return `<div class="nav-dd">
-          <a href="/roofing/"${roofingActive ? ' class="is-active"' : ""} aria-haspopup="true">${t} <span class="nav-caret" aria-hidden="true">▾</span></a>
-          <div class="nav-dd-menu" role="menu">
-${roofingMenu.map(([mh, mt]) => `            <a href="${mh}" role="menuitem"${url.startsWith(mh) && mh !== "/roofing/" ? ' class="is-active"' : ""}>${mt}</a>`).join("\n")}
+      return `<div class="nav-dd" data-nav-dd>
+          <button type="button" class="nav-dd-toggle${roofingActive ? " is-active" : ""}" aria-expanded="false" aria-haspopup="true" aria-controls="nav-roofing-menu">${t} <span class="nav-caret" aria-hidden="true">▾</span></button>
+          <div class="nav-dd-menu" id="nav-roofing-menu" role="menu">
+${roofingMenu.map(([mh, mt]) => `            <a href="${mh}" role="menuitem"${url.startsWith(mh) ? ' class="is-active"' : ""}>${mt}</a>`).join("\n")}
           </div>
         </div>`;
     }
@@ -223,7 +243,7 @@ function layout(page) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="${assetVer("/css/main.css")}">
 ${schema(page)}
 </head>
 <body class="page">
@@ -247,7 +267,7 @@ ${ctaBand(page.ctaHeading)}
   </main>
 ${footer()}
 ${mobileCallbar()}
-${(page.scripts || []).map(s => `  <script src="${s}" defer></script>`).join("\n")}
+${["/js/nav.js", ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
 </body>
 </html>
 `;
@@ -768,4 +788,19 @@ ${urls.map(u => `  <url><loc>${SITE}${u}</loc><changefreq>monthly</changefreq></
 `;
 fs.writeFileSync(path.join(ROOT, "sitemap.xml"), sitemap);
 
-console.log(`Generated ${written} route pages + sitemap.xml (${urls.length} URLs).`);
+/* Apply the same content-hash cache-busting to the hand-built homepage so a
+   CSS/JS change is never stuck behind a stale cache there either. Rewrites the
+   ?v= token on every local css/js reference (leaves inline scripts and the
+   three-module importmap alone). */
+const indexPath = path.join(ROOT, "index.html");
+let patched = 0;
+if (fs.existsSync(indexPath)) {
+  const before = fs.readFileSync(indexPath, "utf8");
+  const after = before.replace(
+    /(href|src)="((?:\/)?(?:css|js)\/[^"?#]+\.(?:css|js))(?:\?[^"#]*)?"/g,
+    (_m, attr, url) => `${attr}="${url}?v=${assetHash(url)}"`
+  );
+  if (after !== before) { fs.writeFileSync(indexPath, after); patched = 1; }
+}
+
+console.log(`Generated ${written} route pages + sitemap.xml (${urls.length} URLs).${patched ? " Cache-busted index.html." : ""}`);

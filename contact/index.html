@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/main.css?v=fcb1e135">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,17 +70,12 @@
       </a>
       <nav class="nav-desktop" aria-label="Primary">
         <a href="/">Home</a>
-        <div class="nav-dd">
-          <a href="/roofing/" aria-haspopup="true">Roofing <span class="nav-caret" aria-hidden="true">▾</span></a>
-          <div class="nav-dd-menu" role="menu">
-            <a href="/roofing/" role="menuitem">Roofing Overview</a>
-            <a href="/roofing/roof-replacement/" role="menuitem">Roof Replacement</a>
-            <a href="/roofing/roof-repair/" role="menuitem">Roof Repair</a>
-            <a href="/roofing/storm-damage/" role="menuitem">Storm Damage</a>
-            <a href="/roofing/insurance-claims/" role="menuitem">Insurance Claims</a>
-            <a href="/commercial-roofing/" role="menuitem">Commercial Roofing</a>
-            <a href="/gutters-and-exteriors/" role="menuitem">Gutters & Exteriors</a>
-            <a href="/roofing/free-inspection/" role="menuitem">Free Inspection</a>
+        <div class="nav-dd" data-nav-dd>
+          <button type="button" class="nav-dd-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="nav-roofing-menu">Roofing <span class="nav-caret" aria-hidden="true">▾</span></button>
+          <div class="nav-dd-menu" id="nav-roofing-menu" role="menu">
+            <a href="/roofing/" role="menuitem">Residential</a>
+            <a href="/commercial-roofing/" role="menuitem">Commercial</a>
+            <a href="/gutters-and-exteriors/" role="menuitem">Exteriors & Gutters</a>
           </div>
         </div>
         <a href="/holiday-lighting/">Holiday Lighting</a>
@@ -245,6 +240,7 @@
     </a>
     <a class="mcb-btn mcb-quote" href="/contact/">Free Inspection</a>
   </div>
-  <script src="/js/form.js" defer></script>
+  <script src="/js/nav.js?v=ee35fca1" defer></script>
+  <script src="/js/form.js?v=d5f9c6c0" defer></script>
 </body>
 </html>
