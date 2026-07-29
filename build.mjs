@@ -35,8 +35,6 @@ const BIZ = {
 const nav = [
   ["/", "Home"],
   ["/roofing/", "Roofing"],
-  ["/commercial-roofing/", "Commercial"],
-  ["/gutters-and-exteriors/", "Gutters & Exteriors"],
   ["/holiday-lighting/", "Holiday Lighting"],
   ["/our-work/", "Our Work"],
   ["/service-areas/", "Service Areas"],
@@ -44,16 +42,43 @@ const nav = [
   ["/contact/", "Contact"]
 ];
 
+// Roofing, commercial roofing and gutters/exteriors are one trade, so they live
+// under a single "Roofing" dropdown instead of three top-level tabs. The pages
+// themselves stay separate (each ranks for its own keyword).
+const roofingMenu = [
+  ["/roofing/", "Roofing Overview"],
+  ["/roofing/roof-replacement/", "Roof Replacement"],
+  ["/roofing/roof-repair/", "Roof Repair"],
+  ["/roofing/storm-damage/", "Storm Damage"],
+  ["/roofing/insurance-claims/", "Insurance Claims"],
+  ["/commercial-roofing/", "Commercial Roofing"],
+  ["/gutters-and-exteriors/", "Gutters & Exteriors"],
+  ["/roofing/free-inspection/", "Free Inspection"]
+];
+const ROOFING_PATHS = ["/roofing/", "/commercial-roofing/", "/gutters-and-exteriors/"];
+
 function header(page) {
   const url = (page && page.url) || "/";
   const isActive = (h) => h === "/" ? url === "/" : url.startsWith(h);
+  const roofingActive = ROOFING_PATHS.some((p) => url.startsWith(p));
+  const navHtml = nav.map(([h, t]) => {
+    if (h === "/roofing/") {
+      return `<div class="nav-dd">
+          <a href="/roofing/"${roofingActive ? ' class="is-active"' : ""} aria-haspopup="true">${t} <span class="nav-caret" aria-hidden="true">▾</span></a>
+          <div class="nav-dd-menu" role="menu">
+${roofingMenu.map(([mh, mt]) => `            <a href="${mh}" role="menuitem"${url.startsWith(mh) && mh !== "/roofing/" ? ' class="is-active"' : ""}>${mt}</a>`).join("\n")}
+          </div>
+        </div>`;
+    }
+    return `<a href="${h}"${isActive(h) ? ' class="is-active"' : ""}>${t}</a>`;
+  }).join("\n        ");
   return `  <header class="site-header is-scrolled" data-header>
     <div class="header-inner">
       <a class="wordmark" href="/" aria-label="${BIZ.name} — home">
         <img class="header-logo" src="/assets/brand/loxley-horizontal-white.webp" width="2219" height="600" alt="${BIZ.name}">
       </a>
       <nav class="nav-desktop" aria-label="Primary">
-        ${nav.map(([h, t]) => `<a href="${h}"${isActive(h) ? ' class="is-active"' : ""}>${t}</a>`).join("\n        ")}
+        ${navHtml}
         <a class="nav-phone" href="tel:${BIZ.phone}" aria-label="Call Loxley Roofing at ${BIZ.phoneDisplay}">
           <svg class="nav-phone-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <span>${BIZ.phoneDisplay}</span>
@@ -388,20 +413,22 @@ ${slides.map((s, i) => `            <div class="fb" data-cfb="${i}"${i === 0 ? '
 /* ---------- pages ---------- */
 const PAGES = [
   {
-    url: "/roofing/", title: "Roofing in St. Louis, MO",
-    description: "Residential roofing across the St. Louis metro — replacement, repair, storm damage, and insurance-claim help from a licensed, locally owned contractor.",
-    h1: "St. Louis Roofing Services",
-    intro: "Roof replacement, repair, storm-damage response, and insurance-claim guidance — done as a complete system and documented at every step.",
+    url: "/roofing/", title: "Roofing & Exteriors in St. Louis, MO",
+    description: "Residential and commercial roofing, storm damage, insurance claims, gutters and exteriors across the St. Louis metro — one trade, from a licensed, locally owned contractor.",
+    h1: "St. Louis Roofing & Exterior Services",
+    intro: "Roofing, storm response, insurance-claim guidance, commercial roofs, and gutters & exteriors — it's all one trade, done as a complete system and documented at every step.",
     body: [
-      LIST("Explore roofing services", [
+      LIST("Explore our roofing & exterior services", [
         `<a href="/roofing/roof-replacement/">Roof Replacement</a> — a full new system, warrantied.`,
         `<a href="/roofing/roof-repair/">Roof Repair</a> — leaks, wind damage, flashing and boots.`,
         `<a href="/roofing/storm-damage/">Storm Damage</a> — hail and wind response, done right.`,
         `<a href="/roofing/insurance-claims/">Insurance Claims</a> — we walk the process with you.`,
+        `<a href="/commercial-roofing/">Commercial Roofing</a> — low-slope and flat-roof systems for businesses.`,
+        `<a href="/gutters-and-exteriors/">Gutters &amp; Exteriors</a> — seamless gutters, downspouts, fascia and soffit.`,
         `<a href="/roofing/free-inspection/">Free Inspection</a> — documented, no obligation.`,
         `<a href="/roofing/roofing-systems/">Roofing Systems</a> — see a roof assembled layer by layer.`
       ]),
-      P("Roofing built as a system", "A roof is only as good as its weakest layer. We install and inspect the whole assembly — deck, ice-and-water shield, underlayment, drip edge, starter, field shingles, flashing, ventilation and ridge — so water has nowhere to go but off your home.")
+      P("One trade, built as a system", "Your roof, your gutters and your exterior envelope all do the same job: keep water out. We handle the whole assembly — deck, ice-and-water shield, underlayment, drip edge, starter, field shingles, flashing, ventilation, ridge, and the gutters that carry the water away — residential or commercial, so nothing is left as someone else's problem.")
     ].join("\n")
   },
   {
