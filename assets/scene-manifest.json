@@ -1,0 +1,181 @@
+{
+  "project": "Loxley Roofing and Construction — House A Scroll Sequence",
+  "canonicalHouseId": "HOUSE_A_TOWN_AND_COUNTRY_MO",
+  "imageFormat": "webp",
+  "continuityLock": {
+    "architecture": "Two-story modern-transitional St. Louis estate",
+    "facade": "Antique White brick with pale architectural cast stone",
+    "windows": "Black-framed divided-light windows",
+    "roof": "Charcoal dimensional shingles with black standing-seam lower roofs",
+    "recognitionPoints": [
+      "three centered roof dormers",
+      "left white-brick chimney",
+      "centered cast-stone portico",
+      "three-car garage on the right",
+      "driveway approaching from the right",
+      "mature Missouri oak trees"
+    ],
+    "instruction": "Every scene represents the same house and lot. Never substitute another property or change the massing, facade openings, roof geometry, chimney, portico, garage, driveway or tree placement."
+  },
+  "rendering": {
+    "fit": "cover",
+    "position": "center center",
+    "preload": true,
+    "recommendedTransition": "short crossfade",
+    "prohibitedTransition": "AI morphing that invents architecture"
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "title": "Hero Exterior",
+      "file": "images/01-hero-exterior.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Completed head-on exterior at blue hour with open sky for the wordmark."
+    },
+    {
+      "id": 2,
+      "title": "Site Preparation",
+      "file": "images/02-site-preparation.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Cleared and graded lot with equipment, survey stakes, erosion control and the future house footprint."
+    },
+    {
+      "id": 3,
+      "title": "Foundation",
+      "file": "images/03-foundation.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "1122x1402",
+      "subject": "Poured footings and foundation walls with reinforcement, waterproofing, drainage and inspection."
+    },
+    {
+      "id": 4,
+      "title": "Floor System",
+      "file": "images/04-floor-system.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "1122x1402",
+      "subject": "Engineered floor joists, beams, subfloor panels, openings and active carpentry."
+    },
+    {
+      "id": 5,
+      "title": "Wall Framing",
+      "file": "images/05-wall-framing.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "1122x1402",
+      "subject": "First- and second-story wall framing with recognizable facade and garage openings."
+    },
+    {
+      "id": 6,
+      "title": "Second Floor and Roof Framing",
+      "file": "images/06-roof-framing.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Roof trusses and hipped roof structure being installed by crane and tied-off carpenters."
+    },
+    {
+      "id": 7,
+      "title": "Roof Decking",
+      "file": "images/07-roof-decking.webp",
+      "displayAspectRatio": "5/6",
+      "sourceDimensions": "1146x1373",
+      "subject": "OSB roof decking with staggered panel joints, dormer openings and fall protection."
+    },
+    {
+      "id": 8,
+      "title": "Roof Underlayment",
+      "file": "images/08-roof-underlayment.webp",
+      "displayAspectRatio": "5/6",
+      "sourceDimensions": "1146x1373",
+      "subject": "Ice-and-water protection, synthetic underlayment and drip edge across the same roof."
+    },
+    {
+      "id": 9,
+      "title": "Flashing Details",
+      "file": "images/09-flashing-details.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "1122x1402",
+      "subject": "Close view of sidewall, chimney, valley and roof-penetration flashing workmanship."
+    },
+    {
+      "id": 10,
+      "title": "Shingle Installation",
+      "file": "images/10-shingle-installation.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Charcoal architectural shingles progressing from eaves toward ridge over exposed underlayment."
+    },
+    {
+      "id": 11,
+      "title": "Ridge, Ventilation and Metal Roof",
+      "file": "images/11-ridge-ventilation-metal-roof.webp",
+      "displayAspectRatio": "5/6",
+      "sourceDimensions": "1149x1369",
+      "subject": "Final ridge-cap, ventilation and black standing-seam porch-roof details."
+    },
+    {
+      "id": 12,
+      "title": "Exterior Envelope",
+      "file": "images/12-exterior-envelope.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Weather-tight shell with completed roofing, installed windows and Antique White brick veneer underway."
+    },
+    {
+      "id": 13,
+      "title": "Mechanical Rough-In",
+      "file": "images/13-mechanical-rough-in.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "972x1619",
+      "subject": "Kitchen-to-family-room view with exposed framing, organized plumbing, electrical and HVAC rough-ins."
+    },
+    {
+      "id": 14,
+      "title": "Insulation and Drywall",
+      "file": "images/14-insulation-drywall.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "972x1619",
+      "subject": "The same interior camera position with insulation, drywall installation and finishing underway."
+    },
+    {
+      "id": 15,
+      "title": "Kitchen and Interior Finishes",
+      "file": "images/15-kitchen-interior-finishes.webp",
+      "displayAspectRatio": "4/5",
+      "sourceDimensions": "971x1619",
+      "subject": "The same completed kitchen and family room with white oak, stone, warm-white cabinetry and dark island."
+    },
+    {
+      "id": 16,
+      "title": "Roof Quality Inspection",
+      "file": "images/16-roof-quality-inspection.webp",
+      "displayAspectRatio": "5/6",
+      "sourceDimensions": "1148x1370",
+      "subject": "Tied-off senior contractor performing a documented final roof inspection."
+    },
+    {
+      "id": 17,
+      "title": "Completed Roofline Detail",
+      "file": "images/17-completed-roofline-detail.webp",
+      "displayAspectRatio": "5/6",
+      "sourceDimensions": "1146x1373",
+      "subject": "People-free close-up of completed shingles, dormers, chimney, gutters and metal-roof transition."
+    },
+    {
+      "id": 18,
+      "title": "Final Exterior Day",
+      "file": "images/18-final-exterior-day.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x941",
+      "subject": "Completed daytime property with professional crew and work vehicles near the right garage."
+    },
+    {
+      "id": 19,
+      "title": "Final Exterior Dusk",
+      "file": "images/19-final-exterior-dusk.webp",
+      "displayAspectRatio": "16/9",
+      "sourceDimensions": "1672x940",
+      "subject": "Cinematic blue-hour closing view with warm interior light and open sky for the final call to action."
+    }
+  ]
+}

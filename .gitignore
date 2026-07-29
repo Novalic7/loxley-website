@@ -1,0 +1,11 @@
+# Dependencies / build artifacts
+node_modules/
+
+# Unused heavy assets (not loaded by any page) — keep the repo lean & fast to deploy
+vendor/
+assets/models/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log

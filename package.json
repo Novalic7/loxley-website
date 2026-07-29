@@ -1,0 +1,9 @@
+{
+  "name": "loxley-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loxley Roofing and Construction — static marketing site. Run `npm start` (or double-click 'Start Loxley Website.bat') to serve it locally.",
+  "scripts": {
+    "start": "node serve.mjs"
+  }
+}

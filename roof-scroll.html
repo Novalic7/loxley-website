@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The roof, scrolled on — Loxley Roofing and Construction</title>
+  <meta name="description" content="Watch a complete Loxley roofing system assemble layer by layer over the actual house — trusses, decking, underlayment, flashing, shingles and finished roofline.">
+  <link rel="icon" href="assets/brand/favicon-dark-96.png" type="image/png">
+  <link rel="icon" href="assets/brand/favicon-white-96.png" type="image/png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three.module.min.js" } }
+  </script>
+
+  <style>
+    :root{
+      --ink:#111315; --charcoal:#25282B; --paper:#F3F0E9; --stone:#C8C1B4;
+      --brass:#17A81A; --brass-hi:#33C531; --line:rgba(243,240,233,.12);
+      --sans:"Manrope","Segoe UI",system-ui,sans-serif;
+      --ease:cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+
+    /* intro + outro so the section can be reviewed in context */
+    .pad{min-height:70vh;display:grid;place-items:center;text-align:center;padding:4rem 1.5rem;gap:1rem}
+    .pad .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass)}
+    .pad h1{font-size:clamp(1.8rem,4vw,3rem);font-weight:300;letter-spacing:-.02em;max-width:20ch;line-height:1.1}
+    .pad p{color:var(--stone);font-weight:300;max-width:52ch}
+    .cue{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);opacity:.8;animation:bob 2.4s ease-in-out infinite}
+    @keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(6px);opacity:1}}
+
+    /* ---- the roof scroll section (original setup) ---- */
+    .roof{position:relative;height:1000vh;background:radial-gradient(120% 90% at 50% 18%,#171B1E,#0B0D0E 72%)}
+    .roof-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
+    .roof-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;z-index:1}
+
+    /* photographic fallback (no WebGL / reduced motion) */
+    .roof-fallback{position:absolute;inset:0;z-index:1}
+    .roof-fallback .fb{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease)}
+    .roof-fallback .fb img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+    /* keep the headline + labels legible over bright photos */
+    .roof-fallback::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(180deg,rgba(11,13,14,.72) 0%,rgba(11,13,14,.12) 26%,rgba(11,13,14,0) 46%,rgba(11,13,14,.28) 74%,rgba(11,13,14,.72) 100%)}
+
+    .roof-head{position:absolute;top:0;left:0;right:0;padding:clamp(84px,14vh,120px) clamp(20px,5vw,64px) 0;pointer-events:none;z-index:3}
+    .roof-head .kicker{display:flex;align-items:center;gap:9px;margin-bottom:14px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+    .roof-head .kicker span.dot{width:6px;height:6px;border-radius:50%;background:var(--brass)}
+    .roof-head h2{font-size:clamp(1.9rem,4.6vw,3.75rem);font-weight:300;line-height:1.02;letter-spacing:-.02em;max-width:16ch;text-wrap:balance}
+
+    .roof-label{position:absolute;left:clamp(20px,5vw,64px);bottom:clamp(40px,8vh,90px);z-index:4;
+      background:rgba(17,19,21,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      border:1px solid rgba(184,138,74,.3);border-radius:4px;padding:16px 22px;min-width:min(300px,72vw);
+      transition:opacity .4s var(--ease)}
+    .roof-label .num{font-size:.62rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--brass);margin-bottom:.5rem}
+    .roof-label .t{font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:400;letter-spacing:-.01em}
+    .roof-label .s{font-size:.82rem;color:var(--stone);margin-top:6px;line-height:1.5;max-width:36ch}
+
+    .roof-legend{position:absolute;right:clamp(20px,5vw,64px);bottom:clamp(40px,8vh,90px);z-index:4;
+      display:flex;flex-direction:column;gap:9px;background:rgba(17,19,21,.7);backdrop-filter:blur(8px);
+      border:1px solid var(--line);border-radius:4px;padding:16px 18px}
+    .roof-legend .lg-title{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);margin-bottom:4px}
+    .roof-legend .lg{display:flex;align-items:center;gap:9px;font-size:.78rem;color:rgba(243,240,233,.55);transition:color .3s var(--ease)}
+    .roof-legend .lg .sw{width:12px;height:12px;border-radius:2px;flex:0 0 auto;opacity:.55;transition:opacity .3s var(--ease),box-shadow .3s var(--ease)}
+    .roof-legend .lg.is-active{color:var(--paper)}
+    .roof-legend .lg.is-active .sw{opacity:1;box-shadow:0 0 0 1px rgba(243,240,233,.4)}
+
+    .roof-progress{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(243,240,233,.1);z-index:4}
+    .roof-progress span{display:block;height:100%;width:100%;background:var(--brass);transform:scaleX(0);transform-origin:left center}
+
+    .roof-replay{position:absolute;top:clamp(84px,14vh,120px);right:clamp(20px,5vw,64px);z-index:5;
+      background:rgba(17,19,21,.8);border:1px solid rgba(243,240,233,.18);color:var(--paper);
+      font-size:.72rem;letter-spacing:.06em;padding:9px 16px;border-radius:100px;cursor:pointer;transition:border-color .3s,background .3s}
+    .roof-replay:hover{border-color:var(--paper);background:rgba(243,240,233,.08)}
+
+    @media (max-width:760px){
+      .roof-legend{display:none}
+      .roof-label{right:clamp(20px,5vw,64px);min-width:0}
+    }
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      .cue{animation:none}
+    }
+  </style>
+</head>
+<body>
+  <section class="pad">
+    <p class="eyebrow">Loxley Roofing &amp; Construction</p>
+    <h1>The section you liked — now on the real house.</h1>
+    <p>This is the “roof, scrolled on” experience — a clean, high-quality photograph of the Loxley residence at each stage of the roofing system. Keep scrolling to watch the roof assemble, layer by layer.</p>
+    <p class="cue">Scroll to build ↓</p>
+  </section>
+
+  <!-- ============ THE ROOF, SCROLLED ON ============ -->
+  <section class="roof" data-roof>
+    <div class="roof-stage" data-roof-stage>
+      <!-- High-quality static-image scroll-through: one photo per roofing step. -->
+      <div class="roof-fallback" data-roof-fallback>
+        <div class="fb" data-fb="0" style="opacity:1"><img data-src="assets/images/06-roof-framing.webp" alt="Engineered roof trusses and framing — ridges, hips and valleys."></div>
+        <div class="fb" data-fb="1"><img data-src="assets/images/07-roof-decking.webp" alt="OSB roof-deck sheathing nailed over the trusses in a staggered pattern."></div>
+        <div class="fb" data-fb="2"><img data-src="assets/images/08-roof-underlayment.webp" alt="Ice-and-water shield, synthetic underlayment and drip edge across the roof."></div>
+        <div class="fb" data-fb="3"><img data-src="assets/images/09-flashing-details.webp" alt="Step, kickout, valley and chimney flashing detail."></div>
+        <div class="fb" data-fb="4"><img data-src="assets/images/10-shingle-installation.webp" alt="Charcoal architectural shingles climbing from the eaves toward the ridge."></div>
+        <div class="fb" data-fb="5"><img data-src="assets/images/11-ridge-ventilation-metal-roof.webp" alt="Ridge-cap ventilation and black standing-seam porch roof."></div>
+        <div class="fb" data-fb="6"><img data-src="assets/images/17-completed-roofline-detail.webp" alt="Completed roofline with ridge caps, dormers, chimney and metal transitions."></div>
+      </div>
+
+      <div class="roof-head">
+        <div class="kicker"><span class="dot"></span> The roof, scrolled on</div>
+        <h2>A complete roofing system, assembled layer by layer.</h2>
+      </div>
+
+      <div class="roof-label" data-roof-label>
+        <div class="num" data-roof-num>Phase 01 / 10</div>
+        <div class="t" data-roof-title>Bare Trusses</div>
+        <div class="s" data-roof-sub>The engineered skeleton — ridges, hips and valleys.</div>
+      </div>
+
+      <div class="roof-legend" aria-hidden="true">
+        <div class="lg-title">Materials</div>
+        <div class="lg" data-lg="0"><span class="sw" style="background:#6b5636"></span>Trusses (lumber)</div>
+        <div class="lg" data-lg="1"><span class="sw" style="background:#c9a66b"></span>Deck sheathing</div>
+        <div class="lg" data-lg="2"><span class="sw" style="background:#3b4a52"></span>Underlayment</div>
+        <div class="lg" data-lg="3"><span class="sw" style="background:#9aa0a3"></span>Flashing (metal)</div>
+        <div class="lg" data-lg="4"><span class="sw" style="background:#22242a"></span>Charcoal shingles</div>
+      </div>
+
+      <button class="roof-replay" data-roof-replay type="button">↻ Replay</button>
+      <div class="roof-progress" aria-hidden="true"><span data-roof-fill></span></div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <p class="eyebrow">Built from the ground up. Protected from the top down.</p>
+    <h1>That’s the Loxley standard — verified, not assumed.</h1>
+    <p>Every seam, fastener and penetration checked, sealed and warrantied.</p>
+  </section>
+
+  <script src="js/roofscroll-boot.js" defer></script>
+</body>
+</html>
