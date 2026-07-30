@@ -1533,7 +1533,8 @@ html.reveal-on [data-reveal].is-revealed {
 .page-hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
 
 /* --- Looping video backdrop (Holiday Lighting hero) ---------------------- */
-.page-hero.has-hero-video { position: relative; overflow: hidden; isolation: isolate; }
+.page-hero.has-hero-video,
+.page-hero.has-hero-image { position: relative; overflow: hidden; isolation: isolate; }
 .page-hero-media {
   position: absolute; inset: 0; z-index: 0;
   background: #14211c 50% / cover no-repeat; /* poster fallback until/without video */
@@ -1551,7 +1552,16 @@ html.reveal-on [data-reveal].is-revealed {
     rgba(11, 18, 15, 0.60) 42%,
     rgba(14, 24, 20, 0.86) 100%);
 }
-.page-hero.has-hero-video .page-hero-inner { position: relative; z-index: 1; }
+.page-hero.has-hero-video .page-hero-inner,
+.page-hero.has-hero-image .page-hero-inner { position: relative; z-index: 1; }
+/* Aerials can be bright (open sky), so darken the scrim a touch more than the
+   video hero to keep the eyebrow, headline and lede fully legible. */
+.page-hero.has-hero-image .page-hero-media::after {
+  background: linear-gradient(180deg,
+    rgba(9, 13, 11, 0.84) 0%,
+    rgba(11, 18, 15, 0.70) 45%,
+    rgba(14, 24, 20, 0.92) 100%);
+}
 /* Reduced-motion: no moving video — the static poster backdrop stays. */
 @media (prefers-reduced-motion: reduce) {
   .page-hero-video { display: none; }

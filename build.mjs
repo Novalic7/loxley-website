@@ -247,6 +247,13 @@ function heroVideo(v) {
       </div>`;
 }
 
+/* Optional static image backdrop for a page hero (e.g. an aerial of a service
+   area, so a local visitor recognizes their own town). Uses the same scrim as
+   the video hero to keep the eyebrow, headline and lede legible. */
+function heroImage(img) {
+  return `      <div class="page-hero-media" role="img" aria-label="${img.alt}" style="background-image:url('${assetVer(img.src)}')"></div>`;
+}
+
 function layout(page) {
   const title = `${page.title} | ${BIZ.name}`;
   const canonical = SITE + page.url;
@@ -279,8 +286,8 @@ ${schema(page)}
   <a class="skip-link" href="#main">Skip to main content</a>
 ${header(page)}
   <main id="main">
-    <section class="page-hero${page.heroVideo ? " has-hero-video" : ""}" aria-label="${page.title}">
-${page.heroVideo ? heroVideo(page.heroVideo) + "\n" : ""}      <div class="page-hero-inner">
+    <section class="page-hero${page.heroVideo ? " has-hero-video" : page.heroImage ? " has-hero-image" : ""}" aria-label="${page.title}">
+${page.heroVideo ? heroVideo(page.heroVideo) + "\n" : page.heroImage ? heroImage(page.heroImage) + "\n" : ""}      <div class="page-hero-inner">
         <p class="eyebrow">${page.eyebrow || "St. Louis Roofing & Exterior Construction"}</p>
         <h1 class="display">${page.h1}</h1>
         ${page.intro ? `<p class="lede">${page.intro}</p>` : ""}
@@ -523,6 +530,7 @@ const AREAS = [
     homes: "Loxley Roofing and Construction is headquartered right here at 524 Clark Ave. Kirkwood blends Victorian and century-old homes near the historic downtown and train station with established mid-century neighborhoods and newer infill builds across the 63122 area.",
     angle: "Being based in town means fast, accountable service — and a company your neighbors can actually find." },
   { slug: "webster-groves", name: "Webster Groves", region: "stl", zips: "63119",
+    photo: "/assets/images/areas/webster-groves.webp",
     intro: "Trusted roofing next door in Webster Groves.",
     desc: "Roof replacement, repair and storm-damage help in Webster Groves, MO — roofing tuned to the area's older and historic homes. Licensed, insured, locally owned, warrantied.",
     homes: "Webster Groves is known for its tree-lined streets and a deep stock of older and historic homes — from turn-of-the-century houses in Old Webster to solid mid-century builds — alongside newer construction.",
@@ -630,6 +638,7 @@ function areaPage(a) {
     eyebrow: `Loxley Service Area · ${countyName(a.region)}`,
     areaServed: [`${a.name}, MO`],
     breadcrumb: [["Home", "/"], ["Service Areas", "/service-areas/"], [a.name, url]],
+    ...(a.photo ? { heroImage: { src: a.photo, alt: `Aerial view of ${a.name}, Missouri` } } : {}),
     body: body.join("\n")
   };
 }
