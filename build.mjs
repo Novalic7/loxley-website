@@ -144,6 +144,7 @@ function footer() {
         <a class="footer-logo" href="/" aria-label="${BIZ.name} — home">
           <img src="/assets/brand/logo-vertical-white.webp" width="500" height="563" alt="${BIZ.name}">
         </a>
+        <p class="footer-tag">Built from the ground up.<br>Protected from the top down.</p>
         <address class="footer-nap">
           <p class="footer-nap-name">${BIZ.name}</p>
           <p>${BIZ.street}<br>${BIZ.city}, ${BIZ.region} ${BIZ.zip}</p>
@@ -155,12 +156,12 @@ function footer() {
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <div class="footer-col">
-          <p class="footer-col-title">Roofing</p>
-          <a href="/roofing/roof-replacement/">Roof Replacement</a>
-          <a href="/roofing/roof-repair/">Roof Repair</a>
-          <a href="/roofing/storm-damage/">Storm Damage</a>
-          <a href="/roofing/insurance-claims/">Insurance Claims</a>
+          <p class="footer-col-title">Services</p>
+          <a href="/roofing/">Residential Roofing</a>
           <a href="/commercial-roofing/">Commercial Roofing</a>
+          <a href="/gutters-and-exteriors/">Gutters &amp; Exteriors</a>
+          <a href="/holiday-lighting/">Holiday Lighting</a>
+          <a href="/construction/">Construction</a>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Company</p>
@@ -175,7 +176,7 @@ function footer() {
       </nav>
     </div>
     <div class="footer-base">
-      <p>© ${y} ${BIZ.name}. All rights reserved.</p>
+      <p>© <span data-year>${y}</span> ${BIZ.name}. All rights reserved.</p>
       <p>Serving the greater St. Louis area</p>
     </div>
   </footer>`;
@@ -1002,9 +1003,16 @@ const indexPath = path.join(ROOT, "index.html");
 let patched = 0;
 if (fs.existsSync(indexPath)) {
   const before = fs.readFileSync(indexPath, "utf8");
-  const after = before.replace(
+  let after = before.replace(
     /(href|src)="((?:\/)?(?:css|js)\/[^"?#]+\.(?:css|js))(?:\?[^"#]*)?"/g,
     (_m, attr, url) => `${attr}="${url}?v=${assetHash(url)}"`
+  );
+  // Keep the hand-built homepage footer identical to every generated page by
+  // regenerating the marked region from the shared footer(). Single source of
+  // truth — the two can't drift apart again.
+  after = after.replace(
+    /<!-- FOOTER:START[\s\S]*?FOOTER:END -->/,
+    () => `<!-- FOOTER:START — generated from footer() in build.mjs; edit it there, not here -->\n${footer()}\n  <!-- FOOTER:END -->`
   );
   if (after !== before) { fs.writeFileSync(indexPath, after); patched = 1; }
 }
