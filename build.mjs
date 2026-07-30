@@ -525,6 +525,7 @@ const AREAS = [
     homes: "The City of St. Louis is defined by its historic brick and century homes and dense, walkable neighborhoods — the Central West End, Tower Grove, Shaw, South City and beyond. That means everything from steep, detailed rooflines to the flat and low-slope roofs common on older city buildings.",
     angle: "We handle both worlds — steep-slope shingle systems and flat/low-slope roofs — with the flashing and detailing older city homes demand." },
   { slug: "kirkwood", name: "Kirkwood", region: "stl", zips: "63122", hq: true,
+    photo: "/assets/images/areas/kirkwood.webp",
     intro: "We're based in Kirkwood — this is home.",
     desc: "Your local Kirkwood, MO roofer. Roof replacement, repair, storm restoration, gutters and construction from a contractor headquartered right in Kirkwood. Licensed, insured, warrantied.",
     homes: "Loxley Roofing and Construction is headquartered right here at 524 Clark Ave. Kirkwood blends Victorian and century-old homes near the historic downtown and train station with established mid-century neighborhoods and newer infill builds across the 63122 area.",
