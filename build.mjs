@@ -586,6 +586,7 @@ const AREAS = [
     homes: "St. Charles pairs the historic homes of its famous Main Street and Frenchtown districts with newer development along the Missouri River — a wide range of roof types and ages.",
     angle: "Historic or new, we bring the right system and the right flashing details for the home." },
   { slug: "st-peters", name: "St. Peters", region: "stc", zips: "63376",
+    photo: "/assets/images/areas/st-peters.webp",
     intro: "Roof replacement and repair for St. Peters.",
     desc: "Roof replacement, repair and storm-damage help in St. Peters, MO — a planned community whose growth-era roofs are now reaching replacement age. Licensed, insured, warrantied.",
     homes: "St. Peters is a planned suburban community of newer homes and subdivisions across the 63376 area, where roofs installed during the community's growth years are now reaching replacement age.",
