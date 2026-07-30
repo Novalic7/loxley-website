@@ -541,6 +541,7 @@ const AREAS = [
     homes: "Clayton — the St. Louis County seat — is one of the region's most prestigious addresses, mixing stately historic homes with modern high-value residences. These are homes where roofing, exteriors and full renovations have to be executed to a high standard, cleanly and on schedule.",
     angle: "Beyond roofing, our construction and renovation team handles additions, kitchens and whole-home remodels to match the caliber of the home." },
   { slug: "ladue", name: "Ladue", region: "stl", zips: "63124", premium: true,
+    photo: "/assets/images/areas/ladue.webp",
     intro: "Meticulous roofing, exteriors and renovation for Ladue estates.",
     desc: "Premium roofing, exteriors and renovation in Ladue, MO — large custom estates and high-value homes, handled with meticulous, documented, property-protective work. Licensed and insured.",
     homes: "Ladue is one of the most affluent communities in Missouri, known for large custom estates and high-value homes on generous, wooded lots. Roofs here are often substantial and complex — steep pitches, multiple valleys, dormers, chimneys and metal accents.",
