@@ -618,6 +618,7 @@ ${LIST("What each stage protects", [
     description: "Seamless gutters, downspouts, fascia, soffit and exterior work across the St. Louis metro — protecting your roof system from the edge down.",
     h1: "Gutters & Exteriors",
     intro: "Your roof ends at the edge — gutters, fascia and soffit carry the water the rest of the way.",
+    heroVideo: { mp4: "/assets/video/gutters-and-exteriors.mp4", poster: "/assets/video/gutters-and-exteriors-poster.jpg" },
     body: skeleton("gutter and exterior project")
   },
   {
