@@ -567,6 +567,7 @@ const AREAS = [
     homes: "Chesterfield spans large subdivisions and newer suburban homes across the 63017 and 63005 areas, from established neighborhoods to newer estates near Chesterfield Valley.",
     angle: "Larger suburban roofs, real hail and wind exposure, and busy homeowners — so we make the process documented and easy." },
   { slug: "ballwin", name: "Ballwin", region: "stl", zips: "63011, 63021",
+    photo: "/assets/images/areas/ballwin.webp",
     intro: "Roof replacement and repair for Ballwin homes.",
     desc: "Roof replacement, repair and storm-damage help in Ballwin, MO — the ranch and two-story homes of a classic family suburb, many now due for a new roof. Licensed, insured, warrantied.",
     homes: "Ballwin is a classic family suburb of ranch and two-story homes built largely from the 1970s through the 1990s — many now reaching the age where the original roof is due for replacement.",
