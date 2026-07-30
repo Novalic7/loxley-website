@@ -586,6 +586,7 @@ const AREAS = [
     homes: "O'Fallon is one of the fastest-growing communities in the metro, full of newer subdivisions across the 63366 and 63368 areas — homes now old enough that first-generation roofs are wearing out and storm claims are common.",
     angle: "We handle the roof and the paperwork: documented inspections and honest storm-claim support." },
   { slug: "st-charles", name: "St. Charles", region: "stc", zips: "63301, 63303",
+    photo: "/assets/images/areas/st-charles.webp",
     intro: "Roofing for St. Charles, from Main Street to the riverfront.",
     desc: "Roofing, repair, storm restoration and gutters in St. Charles, MO — historic Main Street and Frenchtown homes plus newer riverfront development. Licensed, insured, locally owned.",
     homes: "St. Charles pairs the historic homes of its famous Main Street and Frenchtown districts with newer development along the Missouri River — a wide range of roof types and ages.",
