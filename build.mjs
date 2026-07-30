@@ -522,14 +522,66 @@ const PAGES = [
     description: "Full roof replacement in St. Louis — architectural shingles, proper ventilation and flashing, and a 10-year transferable workmanship warranty.",
     h1: "Roof Replacement in St. Louis",
     intro: "When repair no longer makes sense, a properly installed new roof protects your home for decades.",
-    body: skeleton("roof replacement")
+    body: [
+      P("When a full replacement is the right call", "Replacement makes sense when repairs would only delay the inevitable — a roof near the end of its lifespan, widespread granule loss and brittleness, multiple leaks, or storm damage across the whole roof. A new roof installed correctly protects your home for decades and resets the clock on both the material and workmanship warranties. If a repair will genuinely get you there, we'll tell you that instead — replacement is a major investment and we only recommend it when it's the honest answer."),
+      P("What a Loxley roof replacement actually includes", "A real replacement is a complete system, not just new shingles laid over the old problem. We tear off down to the deck so we can see and correct what's underneath, then rebuild every layer to spec:"),
+      LIST("Every layer, rebuilt", [
+        `<strong>Tear-off &amp; deck inspection</strong> — we strip the old roof and check the decking for soft spots, rot or damage, replacing what isn't sound.`,
+        `<strong>Drip edge &amp; ice-and-water shield</strong> — metal edging plus a waterproof membrane at the eaves and valleys, where ice dams and wind-driven rain attack first.`,
+        `<strong>Synthetic underlayment</strong> — a tough secondary water barrier across the entire deck.`,
+        `<strong>Flashing</strong> — new or reconditioned flashing at chimneys, walls, valleys and every penetration, because that's where most leaks begin.`,
+        `<strong>Starter &amp; architectural shingles</strong> — a sealed perimeter and impact-resistant dimensional shingles as the visible, weatherproof surface.`,
+        `<strong>Ridge ventilation &amp; caps</strong> — balanced exhaust at the ridge so your attic breathes and the roof reaches its full lifespan.`
+      ]),
+      P("Tear-off vs. going over the old roof", "You'll sometimes be offered a cheaper 'overlay' — new shingles installed on top of the existing roof. We generally don't recommend it. An overlay hides deck damage you then can't see, traps heat, adds weight, and usually shortens the life of the new shingles and their warranty. A full tear-off costs a little more up front and gives you a roof that actually performs and lasts."),
+      LIST("Our process, start to finish", [
+        "Free, documented inspection and a written scope with your material and color options",
+        "We schedule around the weather and protect your landscaping, siding and windows",
+        "Tear-off, deck inspection and full system installation — usually one to two days",
+        "Magnetic nail-sweep of your yard, full cleanup, and a walkthrough with you",
+        "Warranty registration, so your coverage is on record"
+      ]),
+      P("What backs the work", "Your new roof is covered by the shingle manufacturer's material warranty and our 10-year transferable workmanship warranty — transferable, so it adds value if you sell. We're licensed, insured and locally owned in Kirkwood, so the same company that installs your roof is here to stand behind it."),
+      FAQ([
+        ["How much does a new roof cost?", "It depends on the size and pitch of your roof, the materials you choose, and what we find during tear-off. We give you a clear, itemized written quote after a free inspection — no vague ballparks and no surprises mid-job."],
+        ["How long does it take?", "Most homes are done in one to two days, weather permitting. We give you a realistic schedule for your specific roof before we start."],
+        ["Can you just go over my existing shingles?", "We generally recommend a full tear-off rather than an overlay, so we can inspect the deck and give you a roof that lasts. We'll explain why for your specific situation."],
+        [`Will this be covered by insurance?`, `If the replacement is driven by covered storm damage, often yes. We document everything and can help with the claim — see our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`],
+        [`Do you offer financing?`, `We're working on financing options for larger projects — see <a href="/financing/">financing</a> or just ask us.`]
+      ])
+    ].join("\n")
   },
   {
     url: "/roofing/roof-repair/", title: "Roof Repair in St. Louis, MO",
     description: "Fast, lasting roof repair in the St. Louis metro — leaks, wind-lifted shingles, flashing, pipe boots and valleys, with a documented inspection first.",
     h1: "Roof Repair in St. Louis",
     intro: "Not every roof needs replacing. We find the real source of the problem and fix it right.",
-    body: skeleton("roof repair")
+    body: [
+      P("Most roofs can be repaired — if you find the real problem", "A leak or a few missing shingles doesn't mean you need a new roof. The hard part usually isn't the fix; it's finding the actual source. Water rarely drips straight down from where it got in — it travels along the deck and rafters and shows up on your ceiling feet away from the real entry point. We track a leak back to its true source and fix that, so it doesn't return the next time it rains."),
+      LIST("Common repairs we handle", [
+        "Roof leaks and the water stains they leave on ceilings and in attics",
+        "Wind-lifted, creased, cracked or missing shingles",
+        "Failed or cracked pipe boots around plumbing vents — a very common leak source",
+        "Damaged or lifting flashing at chimneys, walls, skylights and valleys",
+        "Exposed or backed-out nails and worn, cracked sealant",
+        "Storm and hail damage — often insurable, and we document it"
+      ]),
+      P("How we approach a repair", "We start with a documented inspection — up on the roof and in the attic where the evidence usually is — and photograph what we find. Then we show you the source, explain the fix, and tell you honestly whether a repair will hold or whether you'd be better off putting that money toward replacement. When a repair is the right move, we make it with materials that match your roof and workmanship that lasts."),
+      P("When repair is enough — and when it isn't", "A younger roof with an isolated problem — a cracked boot, a wind-damaged section, a flashing failure — is a straightforward repair. But if your roof is near the end of its life, has widespread granule loss, or is leaking in several different spots, patching it again and again usually costs more over time than a replacement. We give you the honest math so you can decide."),
+      LIST("What to do if your roof is leaking right now", [
+        "Move valuables and put a bucket under any active drip",
+        "If it's safe, note where the water is coming in from inside — a photo helps",
+        "Don't climb onto a wet or damaged roof yourself",
+        "Call us for a prompt, documented inspection — and keep receipts for any emergency steps like tarping"
+      ]),
+      FAQ([
+        ["Do I need a whole new roof, or just a repair?", "Often just a repair. We find the real source, show you the evidence, and only recommend replacement when the roof's overall condition genuinely calls for it."],
+        ["Why doesn't my ceiling stain line up with the roof damage?", "Because water travels. It runs along the deck and framing before it drips, so the stain is often well away from the actual entry point. Tracking that path is exactly what a proper inspection does."],
+        ["Do you warranty repairs?", "Yes — our workmanship is backed by our warranty. We'll explain what's covered for your specific repair."],
+        [`Is my repair covered by insurance?`, `If it's from a covered storm event, it may be. We document the damage so you have what you need — see our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`],
+        [`How fast can you come out?`, `Call us at <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> — we prioritize active leaks and get you a documented inspection quickly.`]
+      ])
+    ].join("\n")
   },
   {
     url: "/roofing/storm-damage/", title: "Storm Damage Roof Repair in St. Louis, MO",
@@ -595,7 +647,34 @@ const PAGES = [
     description: "Book a free, no-obligation roof inspection in the St. Louis metro. You get dated photos and an honest assessment you keep — whether or not you hire us.",
     h1: "Free Roof Inspection",
     intro: "A documented look at your roof, with photos you keep and zero pressure.",
-    body: skeleton("inspection")
+    ctaHeading: "Book your free, documented roof inspection",
+    body: [
+      P("What a free Loxley inspection actually includes", "This isn't a sales visit dressed up as an inspection. We do a genuine, top-to-bottom assessment of your roof and its system, document what we find with photos, and hand you a clear picture of your roof's condition — whether or not you ever hire us. You keep the report either way."),
+      LIST("What we check", [
+        "Shingles — wear, granule loss, curling, cracking, and wind or hail damage",
+        "Flashing at chimneys, walls, valleys, skylights and every penetration",
+        "Pipe boots, vents and seals — common, easily-missed leak sources",
+        "Gutters, drip edge and the roof-to-edge transition",
+        "Attic and decking signs where accessible — stains, daylight, moisture and ventilation",
+        "Overall system condition, so you know roughly how much life the roof has left"
+      ]),
+      P("What you walk away with", "A documented, photo-backed summary of your roof's condition, an honest assessment of whether you need nothing, a repair, or a replacement, and clear answers to your questions. No pressure, no obligation and no scare tactics — just the facts about your roof, so you can make a good decision on your own timeline."),
+      P("Why a documented inspection is worth having", "Even if your roof is fine, a dated photo record is valuable. It's the evidence that turns a vague storm claim into an approved one, it helps when you're buying or selling a home, and it gives you a baseline to compare against after the next big Missouri storm. Catching a small issue early — a cracked boot, a lifted shingle — is also far cheaper than repairing the water damage it would otherwise cause."),
+      LIST("Good times to get one", [
+        "After a hail or wind storm — even if you see no obvious damage from the ground",
+        "Before buying or selling a home",
+        "If your roof is 15+ years old and has never been assessed",
+        "When you spot a stain, a leak, or shingles in the yard",
+        "Every couple of years as routine maintenance"
+      ]),
+      FAQ([
+        ["Is the inspection really free?", "Yes — free, with no obligation. You keep the photo report whether or not you hire us."],
+        ["Will you pressure me to buy a new roof?", "No. We tell you what your roof actually needs, even when that's 'nothing yet.' Our reputation depends on straight answers, not scare tactics."],
+        ["How long does it take?", "Usually under an hour for a typical home, depending on size and access."],
+        ["Do I need to be home?", "It helps, so we can walk you through what we find and answer questions — but we can also document the roof and follow up with you."],
+        [`What if you find damage?`, `We show you the photos, explain your options — repair or replacement — and if it's storm-related, we help you document it for a possible <a href="/roofing/insurance-claims/">insurance claim</a>. The next step is always your call.`]
+      ])
+    ].join("\n")
   },
   {
     url: "/roofing/roofing-systems/", title: "How a Roof Is Installed — 7 Stages | St. Louis",
