@@ -218,6 +218,18 @@ function schema(page) {
   return `  <script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n  </script>`;
 }
 
+/* Optional looping video backdrop for a page hero. Muted + autoplay + loop +
+   playsinline so it auto-plays as an ambient background on every browser; the
+   poster paints instantly and is the fallback for reduced-motion users. A scrim
+   (in CSS) keeps the hero text fully legible over the footage. */
+function heroVideo(v) {
+  return `      <div class="page-hero-media" aria-hidden="true" style="background-image:url('${assetVer(v.poster)}')">
+        <video class="page-hero-video" autoplay muted loop playsinline preload="auto" poster="${assetVer(v.poster)}">
+          <source src="${assetVer(v.mp4)}" type="video/mp4">
+        </video>
+      </div>`;
+}
+
 function layout(page) {
   const title = `${page.title} | ${BIZ.name}`;
   const canonical = SITE + page.url;
@@ -250,8 +262,8 @@ ${schema(page)}
   <a class="skip-link" href="#main">Skip to main content</a>
 ${header(page)}
   <main id="main">
-    <section class="page-hero" aria-label="${page.title}">
-      <div class="page-hero-inner">
+    <section class="page-hero${page.heroVideo ? " has-hero-video" : ""}" aria-label="${page.title}">
+${page.heroVideo ? heroVideo(page.heroVideo) + "\n" : ""}      <div class="page-hero-inner">
         <p class="eyebrow">${page.eyebrow || "St. Louis Roofing & Exterior Construction"}</p>
         <h1 class="display">${page.h1}</h1>
         ${page.intro ? `<p class="lede">${page.intro}</p>` : ""}
@@ -703,6 +715,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     h1: "Holiday Lighting, Installed by Roofers",
     eyebrow: "Loxley Holiday Lighting · St. Louis",
     intro: "We're the roofers. We're not going to hurt your roof — we warranty it. Let us light your home for the holidays, start to finish.",
+    heroVideo: { mp4: "/assets/video/holiday-lights.mp4", poster: "/assets/video/holiday-lights-poster.jpg" },
     ctaHeading: "Book your holiday lighting design consult",
     body: [
       P("Professional, worry-free holiday lighting", "We design, measure, custom-cut, install, maintain, take down and store your holiday lights — so your home looks incredible and you never touch a ladder. Because we're roofers first, your roof is in the safest possible hands."),
