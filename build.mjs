@@ -555,6 +555,7 @@ const AREAS = [
     homes: "Des Peres is an established, well-kept community of larger single-family homes, many now at the age where an original roof is due for replacement.",
     angle: "We match the standard of the neighborhood: careful, clean, documented, and backed by our workmanship warranty." },
   { slug: "town-and-country", name: "Town & Country", region: "stl", zips: "63017, 63131", premium: true,
+    photo: "/assets/images/areas/town-and-country.webp",
     intro: "Roofing and renovation for Town & Country's custom homes.",
     desc: "Roofing, exteriors and renovation in Town & Country, MO — large custom homes and estates on wooded acreage, with substantial, often complex roofs. Licensed, insured, documented.",
     homes: "Town & Country is known for large custom homes and estates set on wooded acreage — properties with substantial, often complex roofs where quality, cleanliness and discretion matter.",
