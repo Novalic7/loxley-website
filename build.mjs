@@ -73,7 +73,8 @@ const servicesMenu = [
   ["/roofing/", "Residential Roofing"],
   ["/commercial-roofing/", "Commercial Roofing"],
   ["/gutters-and-exteriors/", "Exteriors & Gutters"],
-  ["/holiday-lighting/", "Holiday Lighting"]
+  ["/holiday-lighting/", "Holiday Lighting"],
+  ["/construction/", "Construction"]
 ];
 const SERVICES_PATHS = servicesMenu.map(([p]) => p);
 
