@@ -536,6 +536,7 @@ const AREAS = [
     homes: "Webster Groves is known for its tree-lined streets and a deep stock of older and historic homes — from turn-of-the-century houses in Old Webster to solid mid-century builds — alongside newer construction.",
     angle: "Older homes reward careful work: proper flashing, ventilation and underlayment matter as much as the shingle itself." },
   { slug: "clayton", name: "Clayton", region: "stl", zips: "63105", premium: true,
+    photo: "/assets/images/areas/clayton.webp",
     intro: "High-standard roofing, exteriors and renovation for Clayton.",
     desc: "Roofing, exteriors and full renovation in Clayton, MO — the county seat's stately historic and high-value modern homes, executed cleanly and documented at every step. Licensed and insured.",
     homes: "Clayton — the St. Louis County seat — is one of the region's most prestigious addresses, mixing stately historic homes with modern high-value residences. These are homes where roofing, exteriors and full renovations have to be executed to a high standard, cleanly and on schedule.",
