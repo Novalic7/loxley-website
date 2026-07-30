@@ -442,6 +442,46 @@ ${slides.map((s, i) => `            <div class="fb" data-cfb="${i}"${i === 0 ? '
       </section>`;
 }
 
+/* Sixteen-stage "Anatomy of a Better Build" — the signature About-page
+   walkthrough. Reuses the roof scroller CSS; driven by js/anatomy.js. */
+function anatomyWalkthrough() {
+  const slides = [
+    ["02-site-preparation", "Site preparation — grading, access and drainage"],
+    ["03-foundation", "Foundation — footings and foundation walls"],
+    ["04-floor-system", "Floor system — engineered joists and subfloor"],
+    ["05-wall-framing", "Wall framing taking shape"],
+    ["06-roof-framing", "Roof framing — trusses, hips and valleys"],
+    ["07-roof-decking", "Roof deck inspected before the assembly goes on"],
+    ["08-roof-underlayment", "Ice-and-water shield and synthetic underlayment"],
+    ["09-flashing-details", "Drip edge and flashing details"],
+    ["10-shingle-installation", "Architectural field shingles and flashing"],
+    ["11-ridge-ventilation-metal-roof", "Ridge vent and matching ridge caps"],
+    ["12-exterior-envelope", "Exterior envelope — windows and brick"],
+    ["13-mechanical-rough-in", "Mechanical rough-in — plumbing, electrical, HVAC"],
+    ["14-insulation-drywall", "Insulation and drywall"],
+    ["15-kitchen-interior-finishes", "Interior finishes — the completed home"],
+    ["16-roof-quality-inspection", "Documented quality inspection"],
+    ["17-completed-roofline-detail", "Completed, inspected roofline"]
+  ];
+  return `      <section class="roof" data-abb style="height:1500vh" aria-label="The anatomy of a better build — sixteen stages">
+        <div class="roof-stage" data-abb-stage>
+          <div class="roof-fallback">
+${slides.map((s, i) => `            <div class="fb" data-abb-fb="${i}"${i === 0 ? ' style="opacity:1"' : ""}><img data-src="/assets/images/${s[0]}.webp" alt="${s[1]}"></div>`).join("\n")}
+          </div>
+          <div class="roof-head">
+            <p class="kicker"><span class="dot" aria-hidden="true"></span> The anatomy of a better build</p>
+            <h2 class="display">Every layer, in order.</h2>
+          </div>
+          <div class="roof-label" data-abb-label>
+            <p class="num" data-abb-num>Stage 1 / 16</p>
+            <p class="t" data-abb-title>Site Preparation</p>
+            <p class="s" data-abb-sub>Grading, access and drainage are set first — a dry, stable site is what every later stage depends on.</p>
+          </div>
+          <div class="roof-progress" aria-hidden="true"><span data-abb-fill></span></div>
+        </div>
+      </section>`;
+}
+
 /* ---------- pages ---------- */
 const PAGES = [
   {
@@ -627,13 +667,21 @@ ${NOTE("The images above are rendered illustrations of the construction process,
   },
   {
     url: "/about/", title: "About — Loxley Roofing and Construction",
-    description: "Loxley Roofing and Construction is a licensed, locally owned roofing and exterior contractor in Kirkwood, MO, serving the St. Louis metro and St. Charles County.",
+    description: "Loxley Roofing and Construction is a licensed, locally owned roofing and exterior contractor in Kirkwood, MO. See the anatomy of a better build — how we build and roof as one complete system.",
     h1: "About Loxley",
     intro: "Locally owned in Kirkwood, MO — built on documentation, communication and long-term protection.",
+    fullWidth: true,
+    scripts: ["/js/anatomy.js"],
     body: [
-      P("Who we are", "Loxley Roofing and Construction is a licensed, insured, locally owned contractor based in Kirkwood, Missouri. We serve homeowners and businesses across the St. Louis metro and St. Charles County with roofing, storm restoration, gutters and exterior construction."),
-      P("How we work", "We treat every property as a complete system and we document everything — so you always know what we found, what we recommend, and why. Our work is backed by a 10-year transferable workmanship warranty."),
-      NOTE("The 'Anatomy of a Better Build' walkthrough will move here during Phase 3.")
+      `      <div class="page-body">
+${P("Who we are", "Loxley Roofing and Construction is a licensed, insured, locally owned contractor based in Kirkwood, Missouri. We serve homeowners and businesses across the St. Louis metro and St. Charles County with roofing, storm restoration, gutters and exterior construction.")}
+${P("How we work", "We treat every property as a complete system and we document everything — so you always know what we found, what we recommend, and why. Our construction knowledge informs our roofing, and our roofing precision informs everything else. The walkthrough below is how we think about a build, layer by layer.")}
+      </div>`,
+      anatomyWalkthrough(),
+      `      <div class="page-body">
+${P("Why the anatomy matters", "A roof — or a home — is only as good as the layers you can't see once it's finished. Sequencing each stage correctly, inspecting it before the next one covers it, and documenting the whole thing is what separates work that lasts from work that just looks finished on day one. That's the standard we hold on every project.")}
+${NOTE("The stages above are rendered illustrations used to explain how a build comes together — not photos of a specific completed project. Real Loxley project photography lives on <a href=\"/our-work/\">Our Work</a>.")}
+      </div>`
     ].join("\n")
   },
   {
