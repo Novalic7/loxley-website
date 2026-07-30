@@ -574,6 +574,7 @@ const AREAS = [
     homes: "Ballwin is a classic family suburb of ranch and two-story homes built largely from the 1970s through the 1990s — many now reaching the age where the original roof is due for replacement.",
     angle: "That makes honest repair-vs-replace guidance especially valuable, and it's exactly what we lead with." },
   { slug: "wildwood", name: "Wildwood", region: "stl", zips: "63038, 63040",
+    photo: "/assets/images/areas/wildwood.webp",
     intro: "Roofing built for Wildwood's wooded, custom homes.",
     desc: "Roofing, storm restoration and gutters in Wildwood, MO — larger wooded lots and custom homes with steep rooflines, complex valleys and heavy tree cover. Licensed, insured, warrantied.",
     homes: "Wildwood's larger wooded lots and custom homes give far-west county a semi-rural feel, with plenty of homes carrying steep rooflines, complex valleys and heavy tree cover.",
