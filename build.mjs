@@ -211,13 +211,26 @@ function schema(page) {
       "addressCountry": "US"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": BIZ.lat, "longitude": BIZ.lng },
-    "areaServed": ["St. Louis, MO", "St. Charles County, MO", "Kirkwood, MO", "Chesterfield, MO", "Webster Groves, MO", "Ballwin, MO", "Wildwood, MO", "O'Fallon, MO"],
+    "areaServed": page.areaServed || ["St. Louis County, MO", "St. Charles County, MO", "St. Louis, MO", "Kirkwood, MO", "Clayton, MO", "Ladue, MO", "Webster Groves, MO", "Chesterfield, MO", "Ballwin, MO", "Wildwood, MO", "Des Peres, MO", "Town and Country, MO", "O'Fallon, MO", "St. Charles, MO", "St. Peters, MO"],
     "openingHours": "Mo-Fr 07:00-17:00",
     "priceRange": "$$",
     "sameAs": [BIZ.gbp]
     // TODO: add "aggregateRating" once the exact Google review COUNT is confirmed.
   };
-  return `  <script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n  </script>`;
+  let out = `  <script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n  </script>`;
+  // Area pages carry a BreadcrumbList (Home › Service Areas › <Area>) for richer
+  // local-SEO results.
+  if (page.breadcrumb) {
+    const bc = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": page.breadcrumb.map((b, i) => ({
+        "@type": "ListItem", "position": i + 1, "name": b[0], "item": SITE + b[1]
+      }))
+    };
+    out += `\n  <script type="application/ld+json">\n${JSON.stringify(bc, null, 2)}\n  </script>`;
+  }
+  return out;
 }
 
 /* Optional looping video backdrop for a page hero. Muted + autoplay + loop +
@@ -482,6 +495,163 @@ ${slides.map((s, i) => `            <div class="fb" data-abb-fb="${i}"${i === 0 
           <div class="roof-progress" aria-hidden="true"><span data-abb-fill></span></div>
         </div>
       </section>`;
+}
+
+/* ---------- service areas (data-driven) ----------
+   One record per community. `homes`/`angle` carry the genuinely local content
+   (real housing character — not fabricated jobs), which is what keeps each page
+   distinct rather than a thin template. Suburbs have no `kind`; `region` groups
+   them (stl = St. Louis County, stc = St. Charles County). Adding a community is
+   one entry here — it generates the page, the hub link, nearby-area backlinks
+   and structured data automatically. */
+const AREAS = [
+  { slug: "st-louis-county", name: "St. Louis County", region: "stl", kind: "county",
+    intro: "Dozens of communities, one local roofing and exterior contractor.",
+    desc: "Loxley Roofing and Construction serves communities across St. Louis County, MO — roofing, storm restoration, gutters, exteriors and construction. Licensed, insured and locally owned in Kirkwood.",
+    homes: "St. Louis County stretches from close-in suburbs like Kirkwood, Webster Groves and Clayton to Ladue's estates and the newer subdivisions of Chesterfield, Ballwin and Wildwood — a huge range of home ages, roof types and price points.",
+    angle: "Wherever you are in the county, we bring the same documented, warrantied roofing and exterior work." },
+  { slug: "st-louis", name: "St. Louis", region: "stl", kind: "city",
+    intro: "Roofing for the city's historic brick homes and low-slope roofs.",
+    desc: "Roofing, storm restoration and exterior work in the City of St. Louis, MO — from historic brick and century homes to flat and low-slope urban roofs. Licensed, insured, locally owned.",
+    homes: "The City of St. Louis is defined by its historic brick and century homes and dense, walkable neighborhoods — the Central West End, Tower Grove, Shaw, South City and beyond. That means everything from steep, detailed rooflines to the flat and low-slope roofs common on older city buildings.",
+    angle: "We handle both worlds — steep-slope shingle systems and flat/low-slope roofs — with the flashing and detailing older city homes demand." },
+  { slug: "kirkwood", name: "Kirkwood", region: "stl", zips: "63122", hq: true,
+    intro: "We're based in Kirkwood — this is home.",
+    desc: "Your local Kirkwood, MO roofer. Roof replacement, repair, storm restoration, gutters and construction from a contractor headquartered right in Kirkwood. Licensed, insured, warrantied.",
+    homes: "Loxley Roofing and Construction is headquartered right here at 524 Clark Ave. Kirkwood blends Victorian and century-old homes near the historic downtown and train station with established mid-century neighborhoods and newer infill builds across the 63122 area.",
+    angle: "Being based in town means fast, accountable service — and a company your neighbors can actually find." },
+  { slug: "webster-groves", name: "Webster Groves", region: "stl", zips: "63119",
+    intro: "Trusted roofing next door in Webster Groves.",
+    desc: "Roof replacement, repair and storm-damage help in Webster Groves, MO — roofing tuned to the area's older and historic homes. Licensed, insured, locally owned, warrantied.",
+    homes: "Webster Groves is known for its tree-lined streets and a deep stock of older and historic homes — from turn-of-the-century houses in Old Webster to solid mid-century builds — alongside newer construction.",
+    angle: "Older homes reward careful work: proper flashing, ventilation and underlayment matter as much as the shingle itself." },
+  { slug: "clayton", name: "Clayton", region: "stl", zips: "63105", premium: true,
+    intro: "High-standard roofing, exteriors and renovation for Clayton.",
+    desc: "Roofing, exteriors and full renovation in Clayton, MO — the county seat's stately historic and high-value modern homes, executed cleanly and documented at every step. Licensed and insured.",
+    homes: "Clayton — the St. Louis County seat — is one of the region's most prestigious addresses, mixing stately historic homes with modern high-value residences. These are homes where roofing, exteriors and full renovations have to be executed to a high standard, cleanly and on schedule.",
+    angle: "Beyond roofing, our construction and renovation team handles additions, kitchens and whole-home remodels to match the caliber of the home." },
+  { slug: "ladue", name: "Ladue", region: "stl", zips: "63124", premium: true,
+    intro: "Meticulous roofing, exteriors and renovation for Ladue estates.",
+    desc: "Premium roofing, exteriors and renovation in Ladue, MO — large custom estates and high-value homes, handled with meticulous, documented, property-protective work. Licensed and insured.",
+    homes: "Ladue is one of the most affluent communities in Missouri, known for large custom estates and high-value homes on generous, wooded lots. Roofs here are often substantial and complex — steep pitches, multiple valleys, dormers, chimneys and metal accents.",
+    angle: "Homes like these demand meticulous roofing and exterior work plus a construction and renovation team that documents everything and protects the property throughout — from a new roof to a full kitchen or whole-home remodel." },
+  { slug: "des-peres", name: "Des Peres", region: "stl", zips: "63131", premium: true,
+    intro: "Clean, documented roofing and exteriors in Des Peres.",
+    desc: "Roofing, gutters, exteriors and construction in Des Peres, MO — an established community of larger homes where clean, careful, documented work is expected. Licensed, insured, warrantied.",
+    homes: "Des Peres is an established, well-kept community of larger single-family homes, many now at the age where an original roof is due for replacement.",
+    angle: "We match the standard of the neighborhood: careful, clean, documented, and backed by our workmanship warranty." },
+  { slug: "town-and-country", name: "Town & Country", region: "stl", zips: "63017, 63131", premium: true,
+    intro: "Roofing and renovation for Town & Country's custom homes.",
+    desc: "Roofing, exteriors and renovation in Town & Country, MO — large custom homes and estates on wooded acreage, with substantial, often complex roofs. Licensed, insured, documented.",
+    homes: "Town & Country is known for large custom homes and estates set on wooded acreage — properties with substantial, often complex roofs where quality, cleanliness and discretion matter.",
+    angle: "From complex re-roofs to additions and full renovations, we bring the documentation and site care these homes deserve." },
+  { slug: "chesterfield", name: "Chesterfield", region: "stl", zips: "63017, 63005",
+    intro: "Roofing and storm restoration across Chesterfield.",
+    desc: "Roof replacement, repair, storm restoration and gutters in Chesterfield, MO — from established neighborhoods to newer estates near Chesterfield Valley. Licensed, insured, warrantied.",
+    homes: "Chesterfield spans large subdivisions and newer suburban homes across the 63017 and 63005 areas, from established neighborhoods to newer estates near Chesterfield Valley.",
+    angle: "Larger suburban roofs, real hail and wind exposure, and busy homeowners — so we make the process documented and easy." },
+  { slug: "ballwin", name: "Ballwin", region: "stl", zips: "63011, 63021",
+    intro: "Roof replacement and repair for Ballwin homes.",
+    desc: "Roof replacement, repair and storm-damage help in Ballwin, MO — the ranch and two-story homes of a classic family suburb, many now due for a new roof. Licensed, insured, warrantied.",
+    homes: "Ballwin is a classic family suburb of ranch and two-story homes built largely from the 1970s through the 1990s — many now reaching the age where the original roof is due for replacement.",
+    angle: "That makes honest repair-vs-replace guidance especially valuable, and it's exactly what we lead with." },
+  { slug: "wildwood", name: "Wildwood", region: "stl", zips: "63038, 63040",
+    intro: "Roofing built for Wildwood's wooded, custom homes.",
+    desc: "Roofing, storm restoration and gutters in Wildwood, MO — larger wooded lots and custom homes with steep rooflines, complex valleys and heavy tree cover. Licensed, insured, warrantied.",
+    homes: "Wildwood's larger wooded lots and custom homes give far-west county a semi-rural feel, with plenty of homes carrying steep rooflines, complex valleys and heavy tree cover.",
+    angle: "Tree cover means debris, gutter load and storm exposure — so flashing, ventilation and gutters get real attention here." },
+  { slug: "ofallon", name: "O'Fallon", region: "stc", zips: "63366, 63368",
+    intro: "Roofing and storm claims across O'Fallon.",
+    desc: "Roof replacement, repair and storm-damage help in O'Fallon, MO — a fast-growing St. Charles County community whose first-generation roofs are now wearing out. Licensed, insured, warrantied.",
+    homes: "O'Fallon is one of the fastest-growing communities in the metro, full of newer subdivisions across the 63366 and 63368 areas — homes now old enough that first-generation roofs are wearing out and storm claims are common.",
+    angle: "We handle the roof and the paperwork: documented inspections and honest storm-claim support." },
+  { slug: "st-charles", name: "St. Charles", region: "stc", zips: "63301, 63303",
+    intro: "Roofing for St. Charles, from Main Street to the riverfront.",
+    desc: "Roofing, repair, storm restoration and gutters in St. Charles, MO — historic Main Street and Frenchtown homes plus newer riverfront development. Licensed, insured, locally owned.",
+    homes: "St. Charles pairs the historic homes of its famous Main Street and Frenchtown districts with newer development along the Missouri River — a wide range of roof types and ages.",
+    angle: "Historic or new, we bring the right system and the right flashing details for the home." },
+  { slug: "st-peters", name: "St. Peters", region: "stc", zips: "63376",
+    intro: "Roof replacement and repair for St. Peters.",
+    desc: "Roof replacement, repair and storm-damage help in St. Peters, MO — a planned community whose growth-era roofs are now reaching replacement age. Licensed, insured, warrantied.",
+    homes: "St. Peters is a planned suburban community of newer homes and subdivisions across the 63376 area, where roofs installed during the community's growth years are now reaching replacement age.",
+    angle: "We give you a straight answer on whether it's time — backed by a documented inspection." }
+];
+
+// Service backlinks shown on each area page (construction/renovation added on the
+// higher-end markets where it's most relevant).
+function areaServices(premium) {
+  const items = [
+    `<a href="/roofing/roof-replacement/">Roof replacement</a> — a full, warrantied new system.`,
+    `<a href="/roofing/roof-repair/">Roof repair</a> — leaks, wind damage, flashing and boots.`,
+    `<a href="/roofing/storm-damage/">Storm &amp; hail restoration</a> — documented for your insurer.`,
+    `<a href="/gutters-and-exteriors/">Gutters &amp; exteriors</a> — seamless gutters, fascia and soffit.`,
+    `<a href="/roofing/free-inspection/">Free roof inspection</a> — photos you keep, no obligation.`
+  ];
+  if (premium) items.splice(4, 0, `<a href="/construction/">Construction &amp; renovation</a> — additions, kitchens and whole-home remodels.`);
+  return items;
+}
+
+function countyName(region) { return region === "stc" ? "St. Charles County" : "St. Louis County"; }
+
+function areaPage(a) {
+  const url = `/service-areas/${a.slug}/`;
+  const peers = AREAS.filter(x => x.region === a.region && x.slug !== a.slug && x.kind !== "county");
+  let body;
+  if (a.kind === "county") {
+    body = [
+      P(`Roofing &amp; exterior services across ${a.name}`, `${a.homes} ${a.angle}`),
+      LIST(`Cities we serve in ${a.name}`, peers.map(x => `<a href="/service-areas/${x.slug}/">${x.name}, MO</a>`)),
+      LIST("What we do", areaServices(true)),
+      NOTE(`Don't see your community listed? We serve the greater St. Louis metro — call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> and we'll confirm we cover your neighborhood.`)
+    ];
+  } else {
+    const nearby = peers.slice(0, 6).map(x => `<a href="/service-areas/${x.slug}/">${x.name}</a>`);
+    nearby.push(`<a href="/service-areas/">All service areas</a>`);
+    body = [
+      P(`Roofing &amp; exterior services in ${a.name}`, `${a.homes} ${a.angle}`),
+      LIST(`What we bring to ${a.name}`, areaServices(a.premium)),
+      P("Local, licensed and documented", `Loxley Roofing and Construction is licensed, insured and locally owned in Kirkwood — minutes from ${a.name}. Every ${a.name} job starts with a free, documented inspection and a written scope in plain English, and every roof is backed by our 10-year transferable workmanship warranty.${a.premium ? " On higher-value homes especially, we protect the property throughout and keep the site orderly from the first day to the final walkthrough." : " We manage the site cleanly day to day and finish with a full magnetic nail-sweep."}`),
+      LIST("Nearby areas we serve", nearby),
+      FAQ([
+        [`Do you offer free roof inspections in ${a.name}?`, "Yes — every inspection is free, documented with photos, and yours to keep with no obligation."],
+        [`Can you help with a storm or insurance claim in ${a.name}?`, `Yes. After Missouri hail and wind we document the damage and walk the claim with you — see our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`]
+      ]),
+      NOTE(`We add real ${a.name} project photos as jobs complete. In the meantime, call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> for a free, documented assessment.`)
+    ];
+  }
+  return {
+    url,
+    title: `${a.name}, MO Roofing & Exterior Services`,
+    description: a.desc,
+    h1: `${a.name} Roofing & Exterior Services`,
+    intro: a.intro,
+    eyebrow: `Loxley Service Area · ${countyName(a.region)}`,
+    areaServed: [`${a.name}, MO`],
+    breadcrumb: [["Home", "/"], ["Service Areas", "/service-areas/"], [a.name, url]],
+    body: body.join("\n")
+  };
+}
+
+function serviceAreasHub() {
+  const link = x => `<a href="/service-areas/${x.slug}/">${x.name}, MO</a>`;
+  const stlCities = AREAS.filter(x => x.region === "stl" && !x.kind);
+  const stcCities = AREAS.filter(x => x.region === "stc" && !x.kind);
+  return {
+    url: "/service-areas/", title: "Service Areas — St. Louis Metro & St. Charles County",
+    description: "Loxley Roofing and Construction serves St. Louis County and St. Charles County — Kirkwood, Clayton, Ladue, Webster Groves, Chesterfield, Ballwin, Wildwood, O'Fallon, St. Charles and more, plus the City of St. Louis.",
+    h1: "Where We Work",
+    intro: "Based in Kirkwood, serving St. Louis County, the City of St. Louis and St. Charles County — with a dedicated page and documented, warrantied work for each community.",
+    breadcrumb: [["Home", "/"], ["Service Areas", "/service-areas/"]],
+    body: [
+      P("One local contractor, the whole metro", `Loxley Roofing and Construction is licensed, insured and headquartered in Kirkwood. We bring the same documented inspections, honest repair-vs-replace guidance, warrantied roofing, gutters, exteriors and <a href="/construction/">construction &amp; renovation</a> to homeowners across the region. Find your community below.`),
+      LIST("St. Louis City &amp; County", [
+        `<a href="/service-areas/st-louis-county/">St. Louis County (overview)</a>`,
+        `<a href="/service-areas/st-louis/">City of St. Louis</a>`
+      ].concat(stlCities.map(link))),
+      LIST("St. Charles County", stcCities.map(link)),
+      P("Don't see your town?", `We serve the greater St. Louis metro. Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> or book a <a href="/roofing/free-inspection/">free inspection</a> and we'll confirm we cover your neighborhood.`)
+    ].join("\n")
+  };
 }
 
 /* ---------- pages ---------- */
@@ -830,41 +1000,8 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
       </div>`
     ].join("\n")
   },
-  {
-    url: "/service-areas/", title: "Service Areas — St. Louis Metro & St. Charles County",
-    description: "Loxley Roofing and Construction serves Kirkwood, Webster Groves, Chesterfield, Ballwin, Wildwood, O'Fallon and communities across the St. Louis metro.",
-    h1: "Where We Work",
-    intro: "Based in Kirkwood, serving the St. Louis metro and St. Charles County.",
-    body: [
-      LIST("Communities we serve", [
-        `<a href="/service-areas/kirkwood/">Kirkwood, MO</a>`,
-        `<a href="/service-areas/webster-groves/">Webster Groves, MO</a>`,
-        "Chesterfield, MO", "Ballwin, MO", "Wildwood, MO", "Des Peres, MO",
-        "Town &amp; Country, MO", "O'Fallon, MO", "St. Charles, MO", "St. Peters, MO"
-      ]),
-      NOTE("Confirm the exact list of suburbs Loxley services. We build a dedicated page for each area only when there's real local content — a real local job, neighborhood detail, and a photo — rather than thin templated pages.")
-    ].join("\n")
-  },
-  {
-    url: "/service-areas/kirkwood/", title: "Roofing in Kirkwood, MO",
-    description: "Roof replacement, repair and storm-damage help in Kirkwood, MO — from a locally owned contractor based right in Kirkwood.",
-    h1: "Roofing in Kirkwood, MO",
-    intro: "We're based in Kirkwood — this is home.",
-    body: [
-      P("Your Kirkwood roofer", "Loxley Roofing and Construction is headquartered at 524 Clark Ave in Kirkwood. From the historic homes near downtown Kirkwood to newer builds across the 63122 area, we handle roof replacement, repair, storm restoration and gutters with documented, warrantied work."),
-      NOTE("Add a real Kirkwood job (before/after photo, roof system, street/neighborhood) to make this page genuinely local.")
-    ].join("\n")
-  },
-  {
-    url: "/service-areas/webster-groves/", title: "Roofing in Webster Groves, MO",
-    description: "Roof replacement, repair and storm-damage help in Webster Groves, MO from Loxley Roofing and Construction — licensed, insured and local.",
-    h1: "Roofing in Webster Groves, MO",
-    intro: "Trusted roofing next door in Webster Groves.",
-    body: [
-      P("Roofing for Webster Groves homes", "From the tree-lined streets and older homes of Webster Groves to its newer construction, we install and repair roofing systems built for Missouri weather — documented, warrantied and done with clean daily site management."),
-      NOTE("Add a real Webster Groves job (before/after photo, roof system, neighborhood) to make this page genuinely local.")
-    ].join("\n")
-  },
+  serviceAreasHub(),
+  ...AREAS.map(areaPage),
   {
     url: "/financing/", title: "Roof Financing in St. Louis, MO",
     description: "Flexible payment options for your roof are coming to Loxley Roofing and Construction. Ask us about financing for your St. Louis-area roofing project.",
