@@ -57,36 +57,36 @@ const BIZ = {
 /* ---------- shared partials ---------- */
 const nav = [
   ["/", "Home"],
-  ["/roofing/", "Roofing"],
-  ["/holiday-lighting/", "Holiday Lighting"],
+  ["#services", "Services"],
   ["/our-work/", "Our Work"],
   ["/service-areas/", "Service Areas"],
   ["/about/", "About"],
   ["/contact/", "Contact"]
 ];
 
-// Roofing, commercial roofing and gutters/exteriors are one trade, so they live
-// under a single "Roofing" dropdown instead of three top-level tabs. The menu is
-// kept deliberately short — three clear choices. Each destination page stays a
-// full, separate page (and ranks for its own keyword); the deeper roofing pages
-// (repair, storm, insurance, inspection) are reached from the Residential hub.
-const roofingMenu = [
-  ["/roofing/", "Residential"],
-  ["/commercial-roofing/", "Commercial"],
-  ["/gutters-and-exteriors/", "Exteriors & Gutters"]
+// Every service line lives under a single "Services" dropdown so the header stays
+// clean and future services (e.g. HVAC) can be added by dropping one entry here —
+// no new top-level tabs. Each destination stays a full, separately-ranking page.
+// SERVICES_PATHS (used for the active-state highlight) is derived from this list,
+// so adding a service keeps the highlight working automatically.
+const servicesMenu = [
+  ["/roofing/", "Residential Roofing"],
+  ["/commercial-roofing/", "Commercial Roofing"],
+  ["/gutters-and-exteriors/", "Exteriors & Gutters"],
+  ["/holiday-lighting/", "Holiday Lighting"]
 ];
-const ROOFING_PATHS = ["/roofing/", "/commercial-roofing/", "/gutters-and-exteriors/"];
+const SERVICES_PATHS = servicesMenu.map(([p]) => p);
 
 function header(page) {
   const url = (page && page.url) || "/";
   const isActive = (h) => h === "/" ? url === "/" : url.startsWith(h);
-  const roofingActive = ROOFING_PATHS.some((p) => url.startsWith(p));
+  const servicesActive = SERVICES_PATHS.some((p) => url.startsWith(p));
   const navHtml = nav.map(([h, t]) => {
-    if (h === "/roofing/") {
+    if (h === "#services") {
       return `<div class="nav-dd" data-nav-dd>
-          <button type="button" class="nav-dd-toggle${roofingActive ? " is-active" : ""}" aria-expanded="false" aria-haspopup="true" aria-controls="nav-roofing-menu">${t} <span class="nav-caret" aria-hidden="true">▾</span></button>
-          <div class="nav-dd-menu" id="nav-roofing-menu" role="menu">
-${roofingMenu.map(([mh, mt]) => `            <a href="${mh}" role="menuitem"${url.startsWith(mh) ? ' class="is-active"' : ""}>${mt}</a>`).join("\n")}
+          <button type="button" class="nav-dd-toggle${servicesActive ? " is-active" : ""}" aria-expanded="false" aria-haspopup="true" aria-controls="nav-services-menu">${t} <span class="nav-caret" aria-hidden="true">▾</span></button>
+          <div class="nav-dd-menu" id="nav-services-menu" role="menu">
+${servicesMenu.map(([mh, mt]) => `            <a href="${mh}" role="menuitem"${url.startsWith(mh) ? ' class="is-active"' : ""}>${mt}</a>`).join("\n")}
           </div>
         </div>`;
     }
