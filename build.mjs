@@ -485,13 +485,36 @@ ${slides.map((s, i) => `            <div class="fb" data-abb-fb="${i}"${i === 0 
 /* ---------- pages ---------- */
 const PAGES = [
   {
-    url: "/roofing/", title: "Roofing & Exteriors in St. Louis, MO",
-    description: "Residential and commercial roofing, storm damage, insurance claims, gutters and exteriors across the St. Louis metro — one trade, from a licensed, locally owned contractor.",
-    h1: "St. Louis Roofing & Exterior Services",
-    intro: "Roofing, storm response, insurance-claim guidance, commercial roofs, and gutters & exteriors — it's all one trade, done as a complete system and documented at every step.",
+    url: "/roofing/", title: "Residential Roofing in St. Louis, MO",
+    description: "Residential roofing across the St. Louis metro — new roofs, repairs and storm restoration installed as a complete system, documented at every step and backed by a 10-year transferable workmanship warranty.",
+    h1: "Residential Roofing in St. Louis",
+    intro: "New roofs, repairs, storm restoration and everything in between — installed as a complete system and documented at every step, for the home you actually live in.",
     body: [
-      P("One trade, built as a system", "Your roof, your gutters and your exterior envelope all do the same job: keep water out. We handle the whole assembly — deck, ice-and-water shield, underlayment, drip edge, starter, field shingles, flashing, ventilation, ridge, and the gutters that carry the water away — residential or commercial, so nothing is left as someone else's problem."),
-      P("Where to go next", "Use the <strong>Roofing</strong> menu above for Residential, Commercial, and Exteriors &amp; Gutters — or jump straight to <a href=\"/roofing/storm-damage/\">storm damage</a>, <a href=\"/roofing/insurance-claims/\">insurance claims</a>, or a <a href=\"/roofing/free-inspection/\">free inspection</a>.")
+      P("Your roof is a system, not just shingles", "Most people picture a roof as the shingles they can see. A roof that lasts is really six or seven layers working together — the deck, the ice-and-water shield, the underlayment, the flashing, the starter and field shingles, and the ventilation that lets the whole assembly breathe. We install and repair every one of those layers to spec, because a failure in any single one is what leads to leaks, premature aging and voided manufacturer warranties."),
+      LIST("Residential roofing we do", [
+        `<a href="/roofing/roof-replacement/">Full roof replacement</a> — a complete new system when repair no longer makes sense.`,
+        `<a href="/roofing/roof-repair/">Roof repair</a> — leaks, wind-lifted shingles, flashing, valleys and pipe boots.`,
+        `<a href="/roofing/storm-damage/">Storm &amp; hail restoration</a> — a documented response after Missouri weather.`,
+        `<a href="/roofing/insurance-claims/">Insurance claim support</a> — we walk the process with you, start to finish.`,
+        `<a href="/roofing/free-inspection/">Free roof inspections</a> — photographed, documented, and yours to keep.`
+      ]),
+      P("Repair or replace? An honest answer.", "Not every roof needs replacing, and we won't tell you it does when it doesn't. A newer roof with isolated damage is usually a repair. A roof near the end of its life — widespread granule loss, brittle or curling shingles, and more than one leak — is usually better replaced than patched again and again. We document the roof's real condition with photos and walk you through both options and their costs, so the decision is yours and it's made on evidence."),
+      LIST("Signs it's worth a closer look", [
+        "Shingles that are curling, cupping, cracked, or shedding granules (check your gutters for granule buildup)",
+        "Ceiling or attic stains, damp insulation, or daylight showing through the roof deck",
+        "Shingles lifted, creased or torn after a windstorm",
+        "A roof that's 20+ years old, or that you know was layered over an older roof",
+        "Rusted or lifting flashing around chimneys, valleys, skylights and vents"
+      ]),
+      P("Materials and details built for Missouri weather", "For most St. Louis homes we install architectural (dimensional) asphalt shingles — more wind- and impact-resistant, longer-lived and better-looking than the old three-tab style. But the parts that quietly decide how long a roof lasts sit underneath the shingles: a proper ice-and-water barrier at the eaves and valleys, quality synthetic underlayment, correctly detailed flashing at every transition, and balanced intake-and-exhaust ventilation so heat and moisture leave your attic instead of cooking the roof from below."),
+      P("How we work — and what stands behind it", "Every job starts with a free, documented inspection and a written scope in plain English. We manage the site cleanly day to day, protect your landscaping, and finish with a full magnetic nail-sweep and a walkthrough with you. Our workmanship is backed by a 10-year transferable warranty on top of the manufacturer's material warranty — and because we're licensed, insured and locally owned in Kirkwood, the company that inspects your roof is the same one that stands behind it years later."),
+      FAQ([
+        ["How long does a roof replacement take?", "Most residential roofs are torn off and replaced in one to two days, weather permitting. We give you a realistic timeline for your specific home before we start."],
+        [`Will insurance pay for my new roof?`, `If the damage is from a covered storm event, often yes. We document the damage and help you navigate the claim — see our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`],
+        ["Do you offer free estimates and inspections?", "Yes. Every inspection and estimate is free, documented with photos, and yours to keep with no obligation."],
+        ["What warranty do you offer?", "Our workmanship is backed by a 10-year transferable warranty, in addition to the shingle manufacturer's material warranty."],
+        ["Are you licensed and insured?", "Yes — licensed and fully insured, and locally owned in Kirkwood, MO."]
+      ])
     ].join("\n")
   },
   {
@@ -600,17 +623,67 @@ ${LIST("What each stage protects", [
     url: "/commercial-roofing/", title: "Commercial Roofing in St. Louis, MO",
     description: "Commercial and flat-roof systems for St. Louis-area businesses — installation, repair and maintenance from a licensed, locally owned contractor.",
     h1: "Commercial Roofing in St. Louis",
-    intro: "Low-slope and flat-roof systems installed and maintained to keep your business dry and open.",
+    intro: "Low-slope and flat-roof systems installed, repaired and maintained to keep your business dry, open and on schedule.",
     heroVideo: { mp4: "/assets/video/commercial-roofing.mp4", poster: "/assets/video/commercial-roofing-poster.jpg" },
-    body: skeleton("commercial roof")
+    body: [
+      P("A commercial roof is a different discipline", "A commercial roof is not just a bigger house roof. Most commercial and industrial buildings have low-slope or flat roofs that shed water slowly, carry rooftop equipment and foot traffic, and fail in completely different ways than a steep residential roof. Getting the membrane, the seams, the flashing details and the drainage right is what keeps your business open and your inventory dry — so we approach every commercial roof as a system engineered for that specific building, its traffic and its budget."),
+      LIST("Commercial systems we work with", [
+        `<strong>TPO</strong> — a single-ply thermoplastic membrane; reflective, energy-efficient and a popular choice for low-slope roofs.`,
+        `<strong>EPDM</strong> — a durable synthetic-rubber membrane with a long, proven track record on flat roofs.`,
+        `<strong>Modified bitumen</strong> — multi-ply asphalt-based systems well suited to roofs that see regular foot traffic.`,
+        `<strong>Standing-seam metal</strong> — long-service-life metal systems for the right slope and building.`,
+        `<strong>Coatings &amp; restoration</strong> — restoring a sound existing roof to add years of life without a full tear-off.`
+      ]),
+      P("The details that decide whether a flat roof lasts", "On a low-slope roof, water doesn't run off — it sits and looks for the weakest point. That makes the parts you can't see from the ground the ones that matter most: adequate slope to the drains, watertight seams, correctly detailed flashing at parapets, curbs and penetrations, and sound edge metal. A commercial leak rarely starts in the open field of the roof; it starts at a detail. We inspect and document all of them, then fix the actual source instead of chasing stains."),
+      LIST("What we handle for commercial clients", [
+        "New installation and full replacement of low-slope and flat roofs",
+        "Leak diagnosis and targeted repair — finding the real source, not just the stain",
+        "Preventive maintenance programs that catch small problems before they close your doors",
+        "Flashing, drainage, curb and rooftop-penetration detailing",
+        "Storm and hail damage assessment, documented for your insurer",
+        "Scheduling around your operating hours to minimize disruption"
+      ]),
+      P("Built around your business, documented for your records", "We know a commercial roof decision usually involves budgets, boards and building managers. So we document what we find with photos, explain repair-versus-restore-versus-replace in plain terms, and hand you a clear scope you can actually act on. Our work is backed by our 10-year transferable workmanship warranty, and we're licensed, insured and locally owned in the St. Louis metro."),
+      FAQ([
+        ["Can you work around our business hours?", "Yes. We schedule and stage the work to keep your operation running and your entrances safe, and we keep the site clean at the end of each day."],
+        ["Do we need a full replacement, or can the roof be repaired or restored?", "It depends on the membrane's age and condition. We inspect and document the roof first, then give you an honest repair, restoration or replacement recommendation — we don't default to the most expensive option."],
+        [`Do you handle commercial storm and hail claims?`, `Yes. We document the damage, provide the photos and scope your insurer needs, and can meet the adjuster on site. See our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`],
+        ["Are you licensed and insured for commercial work?", "Yes — licensed and fully insured, and locally owned in Kirkwood, MO."]
+      ]),
+      NOTE(`Commercial project photos and references are being added. Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> to discuss your building and get a documented assessment.`)
+    ].join("\n")
   },
   {
     url: "/gutters-and-exteriors/", title: "Gutters & Exteriors in St. Louis, MO",
     description: "Seamless gutters, downspouts, fascia, soffit and exterior work across the St. Louis metro — protecting your roof system from the edge down.",
     h1: "Gutters & Exteriors",
-    intro: "Your roof ends at the edge — gutters, fascia and soffit carry the water the rest of the way.",
+    intro: "Your roof ends at the edge — seamless gutters, downspouts, fascia and soffit carry the water the rest of the way, away from your home.",
     heroVideo: { mp4: "/assets/video/gutters-and-exteriors.mp4", poster: "/assets/video/gutters-and-exteriors-poster.jpg" },
-    body: skeleton("gutter and exterior project")
+    body: [
+      P("Where your roof ends, your gutters take over", "A roof can be flawless and a home can still take on water damage if that water isn't carried away from the house. Gutters, downspouts, fascia and soffit are the system that moves thousands of gallons of roof runoff away from your foundation, siding and landscaping every year. As roofers, we treat the edge of your roof and your gutter system as one continuous path for water — because that is exactly what it is."),
+      LIST("What we install and service", [
+        `<strong>Seamless gutters</strong> — custom-formed on site to the exact length of each run, so there are far fewer joints to ever leak.`,
+        `<strong>Downspouts &amp; extensions</strong> — sized and placed to carry water well clear of the foundation.`,
+        `<strong>Gutter guards</strong> — to cut down on leaf-and-debris clogs and the ladder work that comes with them.`,
+        `<strong>Fascia &amp; soffit</strong> — the boards and ventilated panels at the roof edge that protect the structure and keep the attic breathing.`,
+        `<strong>Exterior trim &amp; wood repair</strong> — replacing rotted edge boards uncovered during roof and gutter work.`
+      ]),
+      P("Why seamless — and why sizing matters", "Sectional gutters from a store are joined every few feet, and every joint is a future leak. Seamless gutters are formed from a continuous coil to fit your home, so the only seams are at corners and outlets. Just as important is capacity: undersized gutters, or too few downspouts, overflow in exactly the heavy Missouri downpours when you need them working. We size the whole system to your roof's area and pitch so it actually keeps up."),
+      P("The connection most contractors miss", "Fascia and soffit sit right where the roof, the gutters and the attic all meet. Rotted fascia won't hold gutters securely, and blocked or damaged soffit vents choke the attic ventilation that protects your shingles from the inside out. Because we're roofers first, we see these as one system — we won't hang new gutters on failing boards, or seal up soffit that your roof needs for airflow."),
+      LIST("Our process", [
+        "A free inspection of your gutters, fascia, soffit and roof edge — documented with photos you keep",
+        "Honest recommendations: clean and repair where that's genuinely enough, replace where it isn't",
+        "On-site forming and installation of seamless gutters sized to your home",
+        "Full cleanup and a walkthrough, so you can see the water path works from roof to ground"
+      ]),
+      FAQ([
+        ["What size gutters do I need?", "It depends on your roof's area and pitch and how the runs drain. We size the gutters and downspouts to handle heavy rain for your specific roof, instead of installing a one-size default."],
+        ["Are gutter guards worth it?", "For homes under trees, good guards meaningfully cut down on clogs and dangerous ladder work. We'll tell you honestly whether they make sense for your property rather than upselling them by default."],
+        ["Can you replace rotted fascia and soffit?", "Yes. We repair or replace damaged fascia and soffit as part of the job, so your new gutters mount on sound wood and your attic keeps the ventilation it needs."],
+        ["Do you offer free inspections?", "Yes — every inspection is free, documented with photos, and yours to keep with no obligation."]
+      ]),
+      NOTE(`Real photos of our gutter and exterior work are being added. Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> for a free, documented assessment.`)
+    ].join("\n")
   },
   {
     url: "/construction/", title: "Construction in St. Louis — Ground to Finish",
