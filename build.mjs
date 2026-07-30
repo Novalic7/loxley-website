@@ -74,7 +74,8 @@ const servicesMenu = [
   ["/commercial-roofing/", "Commercial Roofing"],
   ["/gutters-and-exteriors/", "Exteriors & Gutters"],
   ["/holiday-lighting/", "Holiday Lighting"],
-  ["/construction/", "Construction"]
+  ["/construction/", "Construction"],
+  ["/renovations/", "Kitchen & Renovation"]
 ];
 const SERVICES_PATHS = servicesMenu.map(([p]) => p);
 
@@ -163,6 +164,7 @@ function footer() {
           <a href="/gutters-and-exteriors/">Gutters &amp; Exteriors</a>
           <a href="/holiday-lighting/">Holiday Lighting</a>
           <a href="/construction/">Construction</a>
+          <a href="/renovations/">Kitchen &amp; Renovation</a>
         </div>
         <div class="footer-col">
           <p class="footer-col-title">Company</p>
@@ -587,7 +589,7 @@ function areaServices(premium) {
     `<a href="/gutters-and-exteriors/">Gutters &amp; exteriors</a> — seamless gutters, fascia and soffit.`,
     `<a href="/roofing/free-inspection/">Free roof inspection</a> — photos you keep, no obligation.`
   ];
-  if (premium) items.splice(4, 0, `<a href="/construction/">Construction &amp; renovation</a> — additions, kitchens and whole-home remodels.`);
+  if (premium) items.splice(4, 0, `<a href="/renovations/">Kitchen &amp; home renovation</a> — additions, kitchens and whole-home remodels.`);
   return items;
 }
 
@@ -960,6 +962,42 @@ ${LIST("What each phase covers", [
       ])}
 ${NOTE("The images above are rendered illustrations of the construction process, shown to explain how a build progresses — not a specific completed project. Real Loxley project photos live on <a href=\"/our-work/\">Our Work</a>.")}
       </div>`
+    ].join("\n")
+  },
+  {
+    url: "/renovations/", title: "Kitchen & Home Renovation in St. Louis, MO",
+    description: "Kitchen, bath and whole-home renovation across the St. Louis metro from Loxley Roofing and Construction — one licensed, insured, documented team from design to final walkthrough.",
+    h1: "Kitchen & Home Renovation",
+    eyebrow: "Loxley Construction & Renovation",
+    intro: "Kitchens, baths and whole-home remodels — planned, documented and built to last by the same team that protects your roof.",
+    ctaHeading: "Planning a kitchen or home renovation? Let's talk.",
+    body: [
+      P("Renovation, done like a build — not a gamble", "A great renovation lives or dies on what happens behind the finishes: the framing, the plumbing and electrical, the waterproofing, and the sequencing that keeps it all on schedule. We approach kitchens, baths and whole-home remodels the same way we approach a roof or a new build — as a documented system, planned before the first wall comes down — so you get a beautiful result that's sound underneath, not just on the surface."),
+      LIST("What we renovate", [
+        `<strong>Kitchens</strong> — layout, cabinetry, countertops, islands, lighting, and the plumbing and electrical behind them.`,
+        `<strong>Bathrooms</strong> — from refreshes to full gut renovations with proper waterproofing.`,
+        `<strong>Whole-home &amp; rehab</strong> — dated or distressed homes brought back to life, room by room or all at once.`,
+        `<strong>Additions &amp; bump-outs</strong> — more space, tied cleanly into the existing structure and roofline.`,
+        `<strong>Basements &amp; finished spaces</strong> — turning unused square footage into real living space.`,
+        `<strong>Interior &amp; exterior updates</strong> — flooring, trim, doors, windows and the exterior envelope.`
+      ]),
+      P("One team, from the first drawing to the last coat of paint", "Because we're a construction company, your project isn't handed off between a dozen strangers. We handle the structural work, coordinate the trades, and manage the schedule and the site — so there's one accountable team, one point of contact, and one standard from demolition to the final walkthrough. And when a renovation touches the roof, gutters or exterior, that's already our core trade."),
+      LIST("How a Loxley renovation runs", [
+        `<strong>Consultation &amp; scope</strong> — we walk the space, learn how you live, and put together a clear, written scope.`,
+        `<strong>Design &amp; selections</strong> — layout and finishes decided before work starts, so there are no mid-project surprises.`,
+        `<strong>Demolition &amp; the hidden work</strong> — we open things up and address framing, plumbing, electrical and waterproofing properly.`,
+        `<strong>Build &amp; finish</strong> — cabinetry, surfaces, tile, trim and paint, installed to a high standard.`,
+        `<strong>Walkthrough &amp; punch list</strong> — we review every detail with you, and it isn't done until you say it is.`
+      ]),
+      P("Built for the homes that expect more", `We renovate across the St. Louis metro, and this work is especially suited to the high-standard homes of <a href="/service-areas/clayton/">Clayton</a>, <a href="/service-areas/ladue/">Ladue</a>, <a href="/service-areas/town-and-country/">Town &amp; Country</a> and <a href="/service-areas/des-peres/">Des Peres</a> — where clean, documented, property-protective work isn't optional. We treat your home like someone's going to live in it the day after we leave, because they are.`),
+      FAQ([
+        ["Do you handle the whole project, or just part of it?", "The whole project. We manage the structural work, the trades, the schedule and the site as one team, so you have a single point of accountability from start to finish."],
+        ["Can you do just a kitchen or bath without a full-home remodel?", "Absolutely — a single kitchen or bathroom is a common project for us, and we handle the plumbing, electrical and waterproofing behind it, not just the visible finishes."],
+        [`Do you also handle the roof, gutters and exterior?`, `Yes. A renovation is a natural time to address the <a href="/roofing/">roof</a>, <a href="/gutters-and-exteriors/">gutters and exterior</a> — and that's our core trade, so it's all under one roof.`],
+        ["Are you licensed and insured for this work?", "Yes — licensed and fully insured, and locally owned in Kirkwood, MO."],
+        ["How do you keep a renovation on schedule and on budget?", "With a written scope and finish selections made up front, plus documented daily management. Deciding the details before demolition is what prevents the delays and change-order surprises renovations are known for."]
+      ]),
+      NOTE(`We're building out a gallery of completed Loxley renovation projects. In the meantime, call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> or request a <a href="/contact/">consultation</a> to talk through your kitchen or home renovation.`)
     ].join("\n")
   },
   {
