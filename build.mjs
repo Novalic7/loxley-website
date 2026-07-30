@@ -991,6 +991,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     h1: "Kitchen & Home Renovation",
     eyebrow: "Loxley Construction & Renovation",
     intro: "Kitchens, baths and whole-home remodels — planned, documented and built to last by the same team that protects your roof.",
+    heroVideo: { mp4: "/assets/video/renovations.mp4", poster: "/assets/video/renovations-poster.jpg" },
     ctaHeading: "Planning a kitchen or home renovation? Let's talk.",
     body: [
       P("Renovation, done like a build — not a gamble", "A great renovation lives or dies on what happens behind the finishes: the framing, the plumbing and electrical, the waterproofing, and the sequencing that keeps it all on schedule. We approach kitchens, baths and whole-home remodels the same way we approach a roof or a new build — as a documented system, planned before the first wall comes down — so you get a beautiful result that's sound underneath, not just on the surface."),
