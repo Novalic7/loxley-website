@@ -999,22 +999,24 @@ fs.writeFileSync(path.join(ROOT, "sitemap.xml"), sitemap);
    CSS/JS change is never stuck behind a stale cache there either. Rewrites the
    ?v= token on every local css/js reference (leaves inline scripts and the
    three-module importmap alone). */
-const indexPath = path.join(ROOT, "index.html");
+// Hand-built standalone pages (not generated from PAGES). We keep them in sync
+// with the shared partials: cache-bust their css/js URLs, and regenerate the
+// FOOTER:START/END region from footer() so their footer can never drift from
+// the generated pages.
 let patched = 0;
-if (fs.existsSync(indexPath)) {
-  const before = fs.readFileSync(indexPath, "utf8");
+for (const file of ["index.html", "privacy-policy.html"]) {
+  const p = path.join(ROOT, file);
+  if (!fs.existsSync(p)) continue;
+  const before = fs.readFileSync(p, "utf8");
   let after = before.replace(
     /(href|src)="((?:\/)?(?:css|js)\/[^"?#]+\.(?:css|js))(?:\?[^"#]*)?"/g,
     (_m, attr, url) => `${attr}="${url}?v=${assetHash(url)}"`
   );
-  // Keep the hand-built homepage footer identical to every generated page by
-  // regenerating the marked region from the shared footer(). Single source of
-  // truth — the two can't drift apart again.
   after = after.replace(
     /<!-- FOOTER:START[\s\S]*?FOOTER:END -->/,
     () => `<!-- FOOTER:START — generated from footer() in build.mjs; edit it there, not here -->\n${footer()}\n  <!-- FOOTER:END -->`
   );
-  if (after !== before) { fs.writeFileSync(indexPath, after); patched = 1; }
+  if (after !== before) { fs.writeFileSync(p, after); patched++; }
 }
 
-console.log(`Generated ${written} route pages + sitemap.xml (${urls.length} URLs).${patched ? " Cache-busted index.html." : ""}`);
+console.log(`Generated ${written} route pages + sitemap.xml (${urls.length} URLs). Synced ${patched} standalone page(s).`);
