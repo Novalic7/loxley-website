@@ -490,17 +490,8 @@ const PAGES = [
     h1: "St. Louis Roofing & Exterior Services",
     intro: "Roofing, storm response, insurance-claim guidance, commercial roofs, and gutters & exteriors — it's all one trade, done as a complete system and documented at every step.",
     body: [
-      LIST("Explore our roofing & exterior services", [
-        `<a href="/roofing/roof-replacement/">Roof Replacement</a> — a full new system, warrantied.`,
-        `<a href="/roofing/roof-repair/">Roof Repair</a> — leaks, wind damage, flashing and boots.`,
-        `<a href="/roofing/storm-damage/">Storm Damage</a> — hail and wind response, done right.`,
-        `<a href="/roofing/insurance-claims/">Insurance Claims</a> — we walk the process with you.`,
-        `<a href="/commercial-roofing/">Commercial Roofing</a> — low-slope and flat-roof systems for businesses.`,
-        `<a href="/gutters-and-exteriors/">Gutters &amp; Exteriors</a> — seamless gutters, downspouts, fascia and soffit.`,
-        `<a href="/roofing/free-inspection/">Free Inspection</a> — documented, no obligation.`,
-        `<a href="/roofing/roofing-systems/">Roofing Systems</a> — see a roof assembled layer by layer.`
-      ]),
-      P("One trade, built as a system", "Your roof, your gutters and your exterior envelope all do the same job: keep water out. We handle the whole assembly — deck, ice-and-water shield, underlayment, drip edge, starter, field shingles, flashing, ventilation, ridge, and the gutters that carry the water away — residential or commercial, so nothing is left as someone else's problem.")
+      P("One trade, built as a system", "Your roof, your gutters and your exterior envelope all do the same job: keep water out. We handle the whole assembly — deck, ice-and-water shield, underlayment, drip edge, starter, field shingles, flashing, ventilation, ridge, and the gutters that carry the water away — residential or commercial, so nothing is left as someone else's problem."),
+      P("Where to go next", "Use the <strong>Roofing</strong> menu above for Residential, Commercial, and Exteriors &amp; Gutters — or jump straight to <a href=\"/roofing/storm-damage/\">storm damage</a>, <a href=\"/roofing/insurance-claims/\">insurance claims</a>, or a <a href=\"/roofing/free-inspection/\">free inspection</a>.")
     ].join("\n")
   },
   {
