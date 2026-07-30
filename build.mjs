@@ -570,6 +570,7 @@ ${LIST("What each stage protects", [
     description: "Commercial and flat-roof systems for St. Louis-area businesses — installation, repair and maintenance from a licensed, locally owned contractor.",
     h1: "Commercial Roofing in St. Louis",
     intro: "Low-slope and flat-roof systems installed and maintained to keep your business dry and open.",
+    heroVideo: { mp4: "/assets/video/commercial-roofing.mp4", poster: "/assets/video/commercial-roofing-poster.jpg" },
     body: skeleton("commercial roof")
   },
   {
