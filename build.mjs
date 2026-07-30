@@ -561,6 +561,7 @@ const AREAS = [
     homes: "Town & Country is known for large custom homes and estates set on wooded acreage — properties with substantial, often complex roofs where quality, cleanliness and discretion matter.",
     angle: "From complex re-roofs to additions and full renovations, we bring the documentation and site care these homes deserve." },
   { slug: "chesterfield", name: "Chesterfield", region: "stl", zips: "63017, 63005",
+    photo: "/assets/images/areas/chesterfield.webp",
     intro: "Roofing and storm restoration across Chesterfield.",
     desc: "Roof replacement, repair, storm restoration and gutters in Chesterfield, MO — from established neighborhoods to newer estates near Chesterfield Valley. Licensed, insured, warrantied.",
     homes: "Chesterfield spans large subdivisions and newer suburban homes across the 63017 and 63005 areas, from established neighborhoods to newer estates near Chesterfield Valley.",
