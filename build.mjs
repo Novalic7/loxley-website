@@ -549,6 +549,7 @@ const AREAS = [
     homes: "Ladue is one of the most affluent communities in Missouri, known for large custom estates and high-value homes on generous, wooded lots. Roofs here are often substantial and complex — steep pitches, multiple valleys, dormers, chimneys and metal accents.",
     angle: "Homes like these demand meticulous roofing and exterior work plus a construction and renovation team that documents everything and protects the property throughout — from a new roof to a full kitchen or whole-home remodel." },
   { slug: "des-peres", name: "Des Peres", region: "stl", zips: "63131", premium: true,
+    photo: "/assets/images/areas/des-peres.webp",
     intro: "Clean, documented roofing and exteriors in Des Peres.",
     desc: "Roofing, gutters, exteriors and construction in Des Peres, MO — an established community of larger homes where clean, careful, documented work is expected. Licensed, insured, warrantied.",
     homes: "Des Peres is an established, well-kept community of larger single-family homes, many now at the age where an original roof is due for replacement.",
