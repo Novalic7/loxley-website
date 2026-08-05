@@ -677,6 +677,26 @@ function serviceAreasHub() {
   };
 }
 
+/* Featured customer reviews. REAL reviews only — each entry is a genuine quote
+   from the business's Google reviews. Never invent or paraphrase. Populate from
+   the owner-supplied review text; the grid renders only when this is non-empty. */
+const REVIEWS = [
+  // { name: "Jane D.", meta: "Kirkwood, MO", quote: "They did an incredible job..." },
+];
+function reviewsGrid(items) {
+  if (!items || !items.length) return "";
+  return `      <section class="prose">
+        <h2>What St. Louis homeowners say</h2>
+        <div class="reviews-grid">
+${items.map(r => `          <div class="review-card">
+            <p class="review-stars" role="img" aria-label="Rated 5 out of 5 stars">★★★★★</p>
+            <p class="review-quote">${r.quote}</p>
+            <p class="review-author">${r.name}${r.meta ? `<span class="review-meta">${r.meta}</span>` : ""}</p>
+          </div>`).join("\n")}
+        </div>
+      </section>`;
+}
+
 /* ---------- pages ---------- */
 const PAGES = [
   {
@@ -1036,9 +1056,15 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     description: "See what St. Louis-area homeowners say about Loxley Roofing and Construction — 4.9 stars on Google.",
     h1: "Reviews",
     intro: "Rated 4.9 on Google by St. Louis-area homeowners.",
+    scripts: ["/js/reviews-filter.js"],
     body: [
-      `      <section class="prose"><p><a class="btn btn-ghost" href="${BIZ.gbp}" target="_blank" rel="noopener noreferrer">Read our reviews on Google →</a></p></section>`,
-      NOTE("Selected review quotes will be featured here. We only publish real reviews — no invented testimonials.")
+      // Featurable widget — auto-updating Google reviews (external embed).
+      `      <section aria-label="Customer reviews from Google">
+        <div id="featurable-e08b874a-ac0b-4d37-b8d7-e96846a84056" data-featurable-async></div>
+      </section>`,
+      // Fallback link if the widget script is blocked/slow.
+      `      <section class="prose"><p><a class="btn btn-ghost" href="${BIZ.gbp}" target="_blank" rel="noopener noreferrer">Read all our reviews on Google →</a></p></section>`,
+      `      <script src="https://featurable.com/assets/bundle.js" defer charset="UTF-8"></script>`
     ].join("\n")
   },
   {
