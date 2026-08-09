@@ -1047,6 +1047,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     description: "Real Loxley Roofing and Construction projects across the St. Louis metro — residential and commercial roof replacements, flat-roof restorations and exterior work.",
     h1: "Our Work",
     intro: "Real roofs, real projects. A look at recent work across the St. Louis area.",
+    scripts: ["/js/lightbox.js"],
     body: [
       P("Recent projects", "A selection of real Loxley Roofing and Construction projects across the St. Louis metro — residential and commercial, from full architectural-shingle replacements to flat-roof restorations."),
       `      <section aria-label="Project gallery">
