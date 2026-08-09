@@ -1044,11 +1044,21 @@ ${NOTE("The images above are rendered illustrations of the construction process,
   },
   {
     url: "/our-work/", title: "Our Work — St. Louis Roofing Projects",
-    description: "Real Loxley Roofing and Construction projects across the St. Louis metro — before and after, by neighborhood and roof system.",
+    description: "Real Loxley Roofing and Construction projects across the St. Louis metro — residential and commercial roof replacements, flat-roof restorations and exterior work.",
     h1: "Our Work",
-    intro: "Real roofs, real neighborhoods. Here's the standard, applied.",
+    intro: "Real roofs, real projects. A look at recent work across the St. Louis area.",
     body: [
-      NOTE("This gallery will feature real Loxley job photography — before/after pairs with the suburb, the roof system installed, and the timeframe. We're gathering job photos now; the AI-rendered illustrations used elsewhere on the site are never presented here as completed projects.")
+      P("Recent projects", "A selection of real Loxley Roofing and Construction projects across the St. Louis metro — residential and commercial, from full architectural-shingle replacements to flat-roof restorations."),
+      `      <section aria-label="Project gallery">
+        <div class="work-gallery">
+          <figure class="work-item"><img src="/assets/images/work/project-5.webp" loading="lazy" decoding="async" alt="Roof replacement in progress on a large stone-and-stucco Tudor home, new shingles being installed"><figcaption>Roof replacement underway on a stone-and-stucco Tudor home.</figcaption></figure>
+          <figure class="work-item"><img src="/assets/images/work/project-2.webp" loading="lazy" decoding="async" alt="Aerial view of a two-story home with a new green architectural shingle roof"><figcaption>New architectural shingle roof on a two-story home.</figcaption></figure>
+          <figure class="work-item"><img src="/assets/images/work/project-4.webp" loading="lazy" decoding="async" alt="St. Louis-area commercial storefront with a new black architectural shingle hip roof"><figcaption>New architectural shingle roof on a commercial storefront.</figcaption></figure>
+          <figure class="work-item"><img src="/assets/images/work/project-3.webp" loading="lazy" decoding="async" alt="Aerial view of a home in a wooded subdivision with a completed green shingle roof"><figcaption>Completed shingle roof in a wooded subdivision.</figcaption></figure>
+          <figure class="work-item"><img src="/assets/images/work/project-1.webp" loading="lazy" decoding="async" alt="Roofing crew restoring the low-slope roof of a historic St. Louis brick building with a slate mansard"><figcaption>Flat-roof restoration on a historic St. Louis brick building.</figcaption></figure>
+        </div>
+      </section>`,
+      NOTE("A handful of recent projects — we'll keep adding as jobs wrap. Want to see work near you? <a href=\"/contact/\">Get in touch</a> and we'll share more.")
     ].join("\n")
   },
   {

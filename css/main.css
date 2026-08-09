@@ -1685,6 +1685,12 @@ html.reveal-on [data-reveal].is-revealed {
 .review-author { margin: .2rem 0 0; margin-top: auto; padding-top: .4rem; font-weight: 600; color: var(--paper); font-size: var(--step--1); }
 .review-meta { display: block; font-weight: 400; color: var(--stone); font-size: var(--step--2); margin-top: .15rem; }
 
+/* Our Work — real project gallery */
+.work-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin: 1.2rem 0 1.5rem; }
+.work-item { margin: 0; border: 1px solid var(--line-soft); border-radius: 8px; overflow: hidden; background: rgba(17, 19, 21, .35); }
+.work-item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.work-item figcaption { padding: .8rem 1rem; font-size: var(--step--1); color: var(--stone); line-height: 1.45; }
+
 /* ==========================================================================
    Nav dropdown — groups roofing / commercial / gutters under one "Roofing" tab
    Click-to-open via nav.js (.open class), with a :focus-within fallback when
