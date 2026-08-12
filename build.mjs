@@ -258,6 +258,19 @@ function heroImage(img) {
   return `      <div class="page-hero-media" role="img" aria-label="${img.alt}" style="background-image:url('${assetVer(img.src)}')"></div>`;
 }
 
+/* Google Analytics 4 (gtag.js) — injected into the <head> of every page. */
+const GA_ID = "G-8QWSKZ0NXT";
+function analytics() {
+  return `  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${GA_ID}');
+  </script>`;
+}
+
 function layout(page) {
   const title = `${page.title} | ${BIZ.name}`;
   const canonical = SITE + page.url;
@@ -266,6 +279,7 @@ function layout(page) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+${analytics()}
   <title>${title}</title>
   <meta name="description" content="${page.description}">
   <meta name="robots" content="index, follow">
