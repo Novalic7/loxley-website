@@ -157,7 +157,7 @@ function footer() {
           <p>Serving the St.&nbsp;Louis Metro &amp; St.&nbsp;Charles County</p>
         </address>
         <a class="footer-bbb" href="${BIZ.bbbProfile || "https://www.bbb.org/"}" target="_blank" rel="noopener noreferrer" aria-label="${BIZ.name} — BBB Accredited Business">
-          <img src="/assets/brand/bbb-accredited.webp" width="440" height="239" alt="BBB Accredited Business" loading="lazy">
+          <img src="/assets/brand/bbb-seal.webp" width="440" height="239" alt="BBB Accredited Business" loading="lazy">
         </a>
       </div>
       <nav class="footer-nav" aria-label="Footer">
