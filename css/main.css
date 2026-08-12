@@ -1484,10 +1484,10 @@ html.reveal-on [data-reveal].is-revealed {
 .footer-nap-name { font-weight: 600; color: var(--paper); }
 .footer-nap a { color: var(--stone); }
 .footer-nap a:hover { color: var(--brand-green-hi); }
-/* BBB Accredited Business seal — white chip so the teal seal reads on dark. */
-.footer-bbb { display: inline-block; margin-top: 1.3rem; background: #fff; padding: .5rem .6rem; border-radius: 6px; line-height: 0; transition: transform .2s var(--ease-out); }
+/* BBB Accredited Business seal (horizontal navy — sits directly on the dark footer). */
+.footer-bbb { display: inline-block; margin-top: 1.3rem; line-height: 0; transition: transform .2s var(--ease-out); }
 .footer-bbb:hover { transform: translateY(-2px); }
-.footer-bbb img { width: 66px; height: auto; display: block; }
+.footer-bbb img { width: 156px; height: auto; display: block; }
 
 /* Contact form: optional section + reassurance */
 .form-optional { margin: 0.4rem 0; border-top: 1px solid var(--line-soft); padding-top: 0.7rem; }
