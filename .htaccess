@@ -1,5 +1,8 @@
 # Loxley Roofing and Construction — server rules
 
+# Branded 404 page instead of the default host error page.
+ErrorDocument 404 /404.html
+
 # Canonical host: 301-redirect www -> non-www, preserving https, path and query.
 # (HTTP->HTTPS is already handled at the Hostinger/CDN edge, so we deliberately
 #  do NOT add an %{HTTPS} rule here — behind a CDN that can cause a redirect loop.)
@@ -14,6 +17,12 @@
 # browser cache. CSS/JS are fingerprinted with ?v=<hash>, so they're safe to
 # cache for a year; other media caches for a month.
 <IfModule mod_headers.c>
+  # Force HTTPS for a year once a browser has seen the site (HSTS). Safe: the
+  # whole site is already served over HTTPS behind the CDN.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # Small security hardening.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>

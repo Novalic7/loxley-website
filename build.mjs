@@ -51,7 +51,8 @@ const BIZ = {
   zip: "63122",
   lat: 38.5734941,
   lng: -90.394012,
-  gbp: "https://maps.app.goo.gl/i1ZWHzdubEDsrrwT8"
+  gbp: "https://maps.app.goo.gl/i1ZWHzdubEDsrrwT8",
+  bbbProfile: "" // TODO: paste the BBB Accredited Business profile URL to link the seal
 };
 
 /* ---------- shared partials ---------- */
@@ -155,6 +156,9 @@ function footer() {
           <p>Mon–Fri: 7:00&nbsp;AM – 5:00&nbsp;PM</p>
           <p>Serving the St.&nbsp;Louis Metro &amp; St.&nbsp;Charles County</p>
         </address>
+        <a class="footer-bbb" href="${BIZ.bbbProfile || "https://www.bbb.org/"}" target="_blank" rel="noopener noreferrer" aria-label="${BIZ.name} — BBB Accredited Business">
+          <img src="/assets/brand/bbb-accredited.webp" width="81" height="171" alt="BBB Accredited Business" loading="lazy">
+        </a>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <div class="footer-col">
@@ -278,7 +282,8 @@ function layout(page) {
   <meta name="twitter:image" content="${SITE}/assets/images/01-hero-exterior.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="${assetVer("/css/main.css")}">
 ${schema(page)}
 </head>
@@ -391,7 +396,14 @@ ${g.map(x => `          <div class="guarantee"><h3>${x[0]}</h3><p>${x[1]}</p></d
 /* ---------- content helpers ---------- */
 const P = (h, ...ps) => `      <section class="prose">\n        <h2>${h}</h2>\n        ${ps.map(p => `<p>${p}</p>`).join("\n        ")}\n      </section>`;
 const LIST = (h, items) => `      <section class="prose">\n        <h2>${h}</h2>\n        <ul class="prose-list">\n          ${items.map(i => `<li>${i}</li>`).join("\n          ")}\n        </ul>\n      </section>`;
-const FAQ = (items) => `      <section class="prose faq" aria-label="Frequently asked questions">\n        <h2>Frequently asked questions</h2>\n        ${items.map(([q, a]) => `<details class="faq-item"><summary>${q}</summary><p>${a}</p></details>`).join("\n        ")}\n      </section>`;
+const stripTags = (s) => String(s).replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+const FAQ = (items) => {
+  const html = `      <section class="prose faq" aria-label="Frequently asked questions">\n        <h2>Frequently asked questions</h2>\n        ${items.map(([q, a]) => `<details class="faq-item"><summary>${q}</summary><p>${a}</p></details>`).join("\n        ")}\n      </section>`;
+  // FAQPage structured data — valid semantic markup for Bing / AI answer engines
+  // (Google restricted FAQ rich results in 2023, but the schema is still useful).
+  const data = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": items.map(([q, a]) => ({ "@type": "Question", "name": stripTags(q), "acceptedAnswer": { "@type": "Answer", "text": stripTags(a) } })) };
+  return `${html}\n      <script type="application/ld+json">${JSON.stringify(data)}</script>`;
+};
 const NOTE = (t) => `      <section class="prose"><p class="content-note">${t}</p></section>`;
 const skeleton = (what) => [
   P("What Loxley does", `We approach every ${what} as a complete system — the deck, the water barrier, ventilation, flashing and finish work all matter. You get a documented inspection, clear options, and workmanship backed by our 10-year transferable warranty.`),
@@ -661,7 +673,7 @@ function serviceAreasHub() {
   const stcCities = AREAS.filter(x => x.region === "stc" && !x.kind);
   return {
     url: "/service-areas/", title: "Service Areas — St. Louis Metro & St. Charles County",
-    description: "Loxley Roofing and Construction serves St. Louis County and St. Charles County — Kirkwood, Clayton, Ladue, Webster Groves, Chesterfield, Ballwin, Wildwood, O'Fallon, St. Charles and more, plus the City of St. Louis.",
+    description: "Roofing, storm restoration, gutters and construction across St. Louis County, St. Charles County and St. Louis City — local, licensed, warrantied.",
     h1: "Where We Work",
     intro: "Based in Kirkwood, serving St. Louis County, the City of St. Louis and St. Charles County — with a dedicated page and documented, warrantied work for each community.",
     breadcrumb: [["Home", "/"], ["Service Areas", "/service-areas/"]],
@@ -701,7 +713,7 @@ ${items.map(r => `          <div class="review-card">
 const PAGES = [
   {
     url: "/roofing/", title: "Residential Roofing in St. Louis, MO",
-    description: "Residential roofing across the St. Louis metro — new roofs, repairs and storm restoration installed as a complete system, documented at every step and backed by a 10-year transferable workmanship warranty.",
+    description: "Residential roofing across the St. Louis metro — new roofs, repairs and storm restoration, documented and backed by a 10-year workmanship warranty.",
     h1: "Residential Roofing in St. Louis",
     intro: "New roofs, repairs, storm restoration and everything in between — installed as a complete system and documented at every step, for the home you actually live in.",
     body: [
@@ -1105,7 +1117,19 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     h1: "Roofing & Financing Options",
     intro: "A new roof is a big investment — we're working to make it easier to pay for.",
     body: [
-      NOTE("Financing partners are being finalized. Once a lender is signed, this page will show real terms and an application link. In the meantime, call us to discuss options for your project.")
+      P("Paying for a roof, made manageable", "A roof replacement is one of the larger home investments most homeowners make, and it rarely happens on a convenient schedule — especially after a storm. There are usually a few ways to fund the work, and the right one depends on your situation. We'll walk through the options with you honestly, with no pressure."),
+      LIST("Common ways homeowners pay for a roof", [
+        "<strong>Insurance</strong> — if the damage is from a covered storm, much of the cost may be paid by your claim. We document everything and help you through it (see our <a href=\"/roofing/insurance-claims/\">insurance claims guide</a>).",
+        "<strong>Home equity (HELOC or loan)</strong> — often the lowest-rate option for a planned replacement, arranged through your own bank or credit union.",
+        "<strong>Contractor financing</strong> — monthly payment plans through a lending partner, so you can move forward now and pay over time.",
+        "<strong>Cash or card</strong> — straightforward for smaller repairs and inspections."
+      ]),
+      P("Financing partners", "We're finalizing dedicated financing partners so we can offer simple monthly-payment plans directly. Once a lender is signed, this page will show real rates, terms and an online application. In the meantime, call us and we'll talk through what makes sense for your project and budget."),
+      FAQ([
+        ["Do you offer monthly payment plans?", "We're finalizing contractor-financing partners to offer monthly plans directly. Call us and we'll walk you through the current options for your project."],
+        ["Will insurance cover my roof?", "If the damage is from a covered storm event, often a significant portion is covered. We document the damage and help you navigate the claim."]
+      ]),
+      NOTE("Financing terms shown here will be finalized once a lending partner is signed. For now, call " + BIZ.phoneDisplay + " to discuss options — no obligation.")
     ].join("\n")
   },
   {
@@ -1239,7 +1263,7 @@ fs.writeFileSync(path.join(ROOT, "sitemap.xml"), sitemap);
 // FOOTER:START/END region from footer() so their footer can never drift from
 // the generated pages.
 let patched = 0;
-for (const file of ["index.html", "privacy-policy.html"]) {
+for (const file of ["index.html", "privacy-policy.html", "404.html"]) {
   const p = path.join(ROOT, file);
   if (!fs.existsSync(p)) continue;
   const before = fs.readFileSync(p, "utf8");
