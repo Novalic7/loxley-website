@@ -322,7 +322,7 @@ ${ctaBand(page.ctaHeading)}
   </main>
 ${footer()}
 ${mobileCallbar()}
-${["/js/nav.js", ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
+${["/js/nav.js", "/js/track.js", ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
 </body>
 </html>
 `;
@@ -332,6 +332,9 @@ function contactForm() {
   return `      <section class="prose contact-form-wrap">
         <h2>Request a free inspection</h2>
         <form class="contact-form" data-contact-form novalidate>
+          <input type="hidden" name="access_key" value="a9525cee-4764-4b19-80e3-b2e5139b99b7">
+          <input type="hidden" name="subject" value="New Free Inspection Request — loxleyconstruction.com">
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
           <div class="form-row">
             <div class="field">
               <label for="f-name">Name <span aria-hidden="true">*</span></label>

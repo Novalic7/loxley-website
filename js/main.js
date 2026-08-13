@@ -16,7 +16,7 @@
     phone: "+13149066915",           // click-to-call target (E.164)
     phoneDisplay: "(314) 906-6915",  // human-readable
     email: "nova@theloxleycorp.com", // inspection request inbox
-    formEndpoint: "",                // e.g. a Formspree/Basin POST URL
+    formEndpoint: "https://api.web3forms.com/submit", // Web3Forms (access_key is a hidden form field)
     stormMode: false,                // set true after a hail event to promote the storm band
     season: "default"                // "default" | "storm" | "holiday" | "hvac" | "winter"
   };
@@ -672,6 +672,7 @@
         if (!res.ok) throw new Error("Request failed");
         setSubmitting(false);
         form.reset();
+        if (window.__loxleyLead) window.__loxleyLead("homepage");
         statusEl.classList.add("is-success");
         statusEl.textContent = "Thank you — your inspection request has been received. The Loxley team will call you shortly to schedule your free inspection.";
       }).catch(function () {

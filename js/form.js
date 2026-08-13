@@ -9,7 +9,7 @@
 
   var CONFIG = {
     email: "nova@theloxleycorp.com", // inspection request inbox
-    formEndpoint: ""                 // e.g. a Formspree/Basin POST URL
+    formEndpoint: "https://api.web3forms.com/submit" // Web3Forms (access_key is a hidden form field)
   };
 
   var form = document.querySelector("[data-contact-form]");
@@ -116,6 +116,7 @@
           if (!res.ok) throw new Error("Request failed");
           setSubmitting(false);
           form.reset();
+          if (window.__loxleyLead) window.__loxleyLead("contact_page");
           if (statusEl) { statusEl.className = "form-status is-success"; statusEl.textContent = "Thank you — your inspection request has been received. The Loxley team will call you shortly to schedule your free inspection."; }
         })
         .catch(function () { setSubmitting(false); fallbackHandOff(data); });
