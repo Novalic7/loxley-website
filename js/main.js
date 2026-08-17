@@ -68,44 +68,10 @@
   updateHeader();
 
   /* ==================================================================
-     Mobile navigation drawer
+     Mobile navigation drawer — handled site-wide in js/nav.js (loaded on
+     every page). Kept there as the single source of truth so generated
+     service pages get the same drawer behavior as the homepage.
   ================================================================== */
-  var navToggle = document.querySelector("[data-nav-toggle]");
-  var mobileNav = document.querySelector("[data-mobile-nav]");
-  var drawerLinks = mobileNav.querySelectorAll("a");
-  drawerLinks.forEach(function (a, i) { a.style.setProperty("--i", i); });
-
-  function setDrawer(open) {
-    navToggle.setAttribute("aria-expanded", String(open));
-    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    mobileNav.classList.toggle("is-open", open);
-    mobileNav.setAttribute("aria-hidden", String(!open));
-    document.body.style.overflow = open ? "hidden" : "";
-    if (open) {
-      var first = mobileNav.querySelector("a");
-      if (first) first.focus({ preventScroll: true });
-    }
-  }
-  navToggle.addEventListener("click", function () {
-    setDrawer(navToggle.getAttribute("aria-expanded") !== "true");
-  });
-  drawerLinks.forEach(function (a) {
-    a.addEventListener("click", function () { setDrawer(false); });
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && mobileNav.classList.contains("is-open")) {
-      setDrawer(false);
-      navToggle.focus();
-    }
-  });
-  // Basic focus containment while the drawer is open
-  document.addEventListener("focusin", function (e) {
-    if (!mobileNav.classList.contains("is-open")) return;
-    if (!mobileNav.contains(e.target) && e.target !== navToggle) {
-      var first = mobileNav.querySelector("a");
-      if (first) first.focus();
-    }
-  });
 
   /* ==================================================================
      Active nav link highlighting

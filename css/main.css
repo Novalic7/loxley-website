@@ -233,6 +233,9 @@ html.reveal-on [data-reveal].is-revealed {
 .nav-desktop a.is-active::after { right: 0; }
 .btn-nav { padding: 0.7rem 1.3rem; margin-left: 0.5rem; }
 
+/* Wrapper that groups the phone icon + hamburger on the right at mobile widths.
+   Hidden on desktop so it never takes a flex slot and pushes the desktop nav. */
+.header-mobile-actions { display: none; }
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -274,9 +277,15 @@ html.reveal-on [data-reveal].is-revealed {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2.5rem;
-  padding: 6rem var(--gutter) 3rem;
+  /* Start at the top and scroll — the full list (all services + company links +
+     CTAs) is taller than a phone screen, so centering it clipped the top items
+     (e.g. Residential Roofing) with no way to reach them. */
+  justify-content: flex-start;
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  padding: 5.5rem var(--gutter) 3rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 .mobile-nav nav { display: flex; flex-direction: column; gap: 0.4rem; }
 .mobile-nav nav a {
@@ -1353,6 +1362,7 @@ html.reveal-on [data-reveal].is-revealed {
 @media (max-width: 1100px) {
   .nav-desktop { display: none; }
   .nav-toggle { display: flex; }
+  .header-mobile-actions { display: flex; align-items: center; gap: 0.35rem; }
   .services-grid { grid-template-columns: 1fr 1fr; }
   .quality-grid { grid-template-columns: 1fr 1fr; row-gap: 2.4rem; }
   .systems-inner { grid-template-columns: 1fr; }
