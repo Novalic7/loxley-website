@@ -159,13 +159,20 @@ function trustbar() {
   </section>`;
 }
 
-function ctaBand(heading) {
+// Closing CTA band. Defaults speak to roofing/inspection (correct for the
+// roofing pages, which are most of the site); non-roofing service pages pass
+// ctaHeading / ctaText / ctaButton so the verbiage is oriented to that service
+// instead of talking about inspecting a roof.
+function ctaBand(page) {
+  const heading = (page && page.ctaHeading) || "Ready for a free, no-obligation inspection?";
+  const text = (page && page.ctaText) || "We'll document your roof, explain your options in plain English, and give you a clear path forward.";
+  const button = (page && page.ctaButton) || "Schedule a Free Inspection";
   return `  <section class="page-cta" aria-label="Get started">
     <div class="page-cta-inner">
-      <h2 class="display">${heading || "Ready for a free, no-obligation inspection?"}</h2>
-      <p>We'll document your roof, explain your options in plain English, and give you a clear path forward.</p>
+      <h2 class="display">${heading}</h2>
+      <p>${text}</p>
       <div class="page-cta-actions">
-        <a class="btn btn-solid" href="/contact/">Schedule a Free Inspection</a>
+        <a class="btn btn-solid" href="/contact/">${button}</a>
         <a class="btn btn-ghost" href="tel:${BIZ.phone}">Call ${BIZ.phoneDisplay}</a>
       </div>
     </div>
@@ -344,14 +351,14 @@ ${page.heroVideo ? heroVideo(page.heroVideo) + "\n" : page.heroImage ? heroImage
         <h1 class="display">${page.h1}</h1>
         ${page.intro ? `<p class="lede">${page.intro}</p>` : ""}
         <div class="page-hero-actions">
-          <a class="btn btn-solid" href="/contact/">Free Inspection</a>
+          <a class="btn btn-solid" href="/contact/">${page.heroCta || "Free Inspection"}</a>
           <a class="btn btn-ghost" href="tel:${BIZ.phone}">Call ${BIZ.phoneDisplay}</a>
         </div>
       </div>
     </section>
 ${trustbar()}
 ${page.fullWidth ? page.body : `    <div class="page-body">\n${page.body}\n    </div>`}
-${ctaBand(page.ctaHeading)}
+${ctaBand(page)}
   </main>
 ${footer()}
 ${mobileCallbar()}
@@ -981,6 +988,10 @@ ${LIST("What each stage protects", [
     h1: "Commercial Roofing in St. Louis",
     intro: "Low-slope and flat-roof systems installed, repaired and maintained to keep your business dry, open and on schedule.",
     heroVideo: { mp4: "/assets/video/commercial-roofing.mp4", poster: "/assets/video/commercial-roofing-poster.jpg" },
+    heroCta: "Request an Assessment",
+    ctaHeading: "Need a commercial roof assessment?",
+    ctaText: "We'll assess your building's roof, document what we find with photos, and give you a clear repair, restore or replace recommendation you can act on — scheduled around your operating hours.",
+    ctaButton: "Request an Assessment",
     body: [
       P("A commercial roof is a different discipline", "A commercial roof is not just a bigger house roof. Most commercial and industrial buildings have low-slope or flat roofs that shed water slowly, carry rooftop equipment and foot traffic, and fail in completely different ways than a steep residential roof. Getting the membrane, the seams, the flashing details and the drainage right is what keeps your business open and your inventory dry — so we approach every commercial roof as a system engineered for that specific building, its traffic and its budget."),
       LIST("Commercial systems we work with", [
@@ -1015,6 +1026,8 @@ ${LIST("What each stage protects", [
     h1: "Gutters & Exteriors",
     intro: "Your roof ends at the edge — seamless gutters, downspouts, fascia and soffit carry the water the rest of the way, away from your home.",
     heroVideo: { mp4: "/assets/video/gutters-and-exteriors.mp4", poster: "/assets/video/gutters-and-exteriors-poster.jpg" },
+    ctaHeading: "Book your free gutter & exterior inspection",
+    ctaText: "We'll inspect your gutters, fascia, soffit and roof edge, document it with photos you keep, and give you honest recommendations — repair where that's enough, replace where it isn't.",
     body: [
       P("Where your roof ends, your gutters take over", "A roof can be flawless and a home can still take on water damage if that water isn't carried away from the house. Gutters, downspouts, fascia and soffit are the system that moves thousands of gallons of roof runoff away from your foundation, siding and landscaping every year. As roofers, we treat the edge of your roof and your gutter system as one continuous path for water — because that is exactly what it is."),
       LIST("What we install and service", [
@@ -1047,6 +1060,10 @@ ${LIST("What each stage protects", [
     h1: "From the Ground Up",
     intro: "The same planning, documentation and standards we bring to roofing, applied to the whole build. Scroll the sequence, stage by stage.",
     fullWidth: true,
+    heroCta: "Start Your Project",
+    ctaHeading: "Planning a build or addition? Let's talk.",
+    ctaText: "Tell us what you're planning. We'll walk the site, talk through scope and budget, and give you a clear, documented path from the ground up.",
+    ctaButton: "Request a Consultation",
     scripts: ["/js/construction-sequence.js"],
     body: [
       constructionSequence(),
@@ -1074,7 +1091,10 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     eyebrow: "Loxley Construction & Renovation",
     intro: "Kitchens, baths and whole-home remodels — planned, documented and built to last by the same team that protects your roof.",
     heroVideo: { mp4: "/assets/video/renovations.mp4", poster: "/assets/video/renovations-poster.jpg" },
+    heroCta: "Start Your Project",
     ctaHeading: "Planning a kitchen or home renovation? Let's talk.",
+    ctaText: "Tell us about your kitchen, bath or whole-home project. We'll walk the space, talk through scope and finishes, and give you a clear, written plan — no pressure.",
+    ctaButton: "Request a Consultation",
     body: [
       P("Renovation, done like a build — not a gamble", "A great renovation lives or dies on what happens behind the finishes: the framing, the plumbing and electrical, the waterproofing, and the sequencing that keeps it all on schedule. We approach kitchens, baths and whole-home remodels the same way we approach a roof or a new build — as a documented system, planned before the first wall comes down — so you get a beautiful result that's sound underneath, not just on the surface."),
       LIST("What we renovate", [
@@ -1166,6 +1186,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     description: "Flexible payment options for your roof are coming to Loxley Roofing and Construction. Ask us about financing for your St. Louis-area roofing project.",
     h1: "Roofing & Financing Options",
     intro: "A new roof is a big investment — we're working to make it easier to pay for.",
+    heroCta: "Talk Through Options",
+    ctaHeading: "Let's find a payment plan that fits.",
+    ctaText: "Call us and we'll walk through insurance, home equity, contractor financing and payment options for your roof — honestly, and with no pressure.",
+    ctaButton: "Talk Through Options",
     body: [
       P("Paying for a roof, made manageable", "A roof replacement is one of the larger home investments most homeowners make, and it rarely happens on a convenient schedule — especially after a storm. There are usually a few ways to fund the work, and the right one depends on your situation. We'll walk through the options with you honestly, with no pressure."),
       LIST("Common ways homeowners pay for a roof", [
@@ -1202,6 +1226,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     description: "Loxley Roofing and Construction is expanding into home services for the St. Louis metro. See what's available today and what's coming.",
     h1: "More of Your Home, One Trusted Team",
     intro: "We're expanding beyond the roof — carefully, and only when we can do it to the Loxley standard.",
+    heroCta: "Talk to Loxley",
+    ctaHeading: "Need something for your home? Ask us.",
+    ctaText: "Roofing and exteriors are fully available today across the St. Louis metro. Call us and we'll help — or tell you honestly when a new trade goes live.",
+    ctaButton: "Get in Touch",
     body: [
       P("Available today", "Roofing, storm restoration, gutters and exterior construction are fully available now across the St. Louis metro and St. Charles County."),
       P("Coming soon", "We're building out HVAC, plumbing and electrical so more of your home can be handled by one licensed, documented, warranty-backed team. Each trade goes on the site only once we can actually answer the call — an emergency we can't service helps no one."),
@@ -1219,7 +1247,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     eyebrow: "Loxley Holiday Lighting · St. Louis",
     intro: "We're the roofers. We're not going to hurt your roof — we warranty it. Let us light your home for the holidays, start to finish.",
     heroVideo: { mp4: "/assets/video/holiday-lights.mp4", poster: "/assets/video/holiday-lights-poster.jpg" },
+    heroCta: "Get a Free Design Consult",
     ctaHeading: "Book your holiday lighting design consult",
+    ctaText: "We'll design a display for your home, handle the install, maintenance, takedown and storage, and give you a clear quote up front — you never touch a ladder.",
+    ctaButton: "Book a Design Consult",
     body: [
       P("Professional, worry-free holiday lighting", "We design, measure, custom-cut, install, maintain, take down and store your holiday lights — so your home looks incredible and you never touch a ladder. Because we're roofers first, your roof is in the safest possible hands."),
       LIST("What's included", [
@@ -1244,6 +1275,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     h1: "How It Works",
     eyebrow: "Loxley Holiday Lighting",
     intro: "Five steps, and zero ladders for you.",
+    heroCta: "Get a Free Design Consult",
+    ctaHeading: "Ready to light up your home this season?",
+    ctaText: "Book a free design consult and we'll handle the rest — design, install, season-long maintenance, takedown and storage.",
+    ctaButton: "Book a Design Consult",
     body: [
       LIST("The process", [
         "<strong>Free design consult</strong> — we walk your home and design a display you love.",
@@ -1262,7 +1297,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     h1: "Pricing & Packages",
     eyebrow: "Loxley Holiday Lighting",
     intro: "Simple packages — all fully installed, maintained, taken down and stored.",
+    heroCta: "Get a Free Design Consult",
     ctaHeading: "Lock in early-bird pricing before October 15",
+    ctaText: "Book a free design consult and reserve your install date — every package is fully designed, installed, maintained, taken down and stored.",
+    ctaButton: "Book a Design Consult",
     body: [
       `      <section class="prose"><div class="price-grid">
         <div class="price-card"><h3>Roofline</h3><p>Clean, classic lights along your primary rooflines and peaks.</p><p class="price-figure">Custom quote</p></div>
@@ -1280,6 +1318,10 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     h1: "Holiday Lighting Gallery",
     eyebrow: "Loxley Holiday Lighting",
     intro: "Real homes, professionally lit.",
+    heroCta: "Get a Free Design Consult",
+    ctaHeading: "Want your home to look like this?",
+    ctaText: "Book a free design consult and we'll design, install, maintain, take down and store your holiday lighting — start to finish.",
+    ctaButton: "Book a Design Consult",
     body: [
       NOTE("Photos of completed Loxley holiday lighting installs will be featured here. We only show real work — add photos once the first installs are done.")
     ].join("\n")
