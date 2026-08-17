@@ -684,6 +684,23 @@ function areaServices(premium) {
 
 function countyName(region) { return region === "stc" ? "St. Charles County" : "St. Louis County"; }
 
+/* Communities genuinely close to our Kirkwood HQ (roughly 15 minutes or less) —
+   used ONLY to keep the proximity wording honest. Everywhere else we serve, we
+   say we're Kirkwood-based and serve the area, without implying it's "minutes
+   away" (e.g. St. Charles County is a real drive, not minutes from Kirkwood).
+   This is a wording aid, not a service boundary — we serve the whole metro. */
+const NEAR_KIRKWOOD = new Set([
+  "kirkwood", "webster-groves", "des-peres", "town-and-country", "ballwin", "clayton", "ladue"
+]);
+
+function areaLocality(a) {
+  const base = "Loxley Roofing and Construction is licensed, insured and locally owned";
+  if (a.hq) return `${base}, headquartered right here in ${a.name}`;
+  if (NEAR_KIRKWOOD.has(a.slug)) return `${base}, based nearby in Kirkwood`;
+  if (a.region === "stc") return `${base} in Kirkwood, and we serve ${a.name} throughout ${countyName(a.region)}`;
+  return `${base} in Kirkwood, and we serve ${a.name} across the greater St. Louis metro`;
+}
+
 function areaPage(a) {
   const url = `/service-areas/${a.slug}/`;
   const peers = AREAS.filter(x => x.region === a.region && x.slug !== a.slug && x.kind !== "county");
@@ -701,7 +718,7 @@ function areaPage(a) {
     body = [
       P(`Roofing &amp; exterior services in ${a.name}`, `${a.homes} ${a.angle}`),
       LIST(`What we bring to ${a.name}`, areaServices(a.premium)),
-      P("Local, licensed and documented", `Loxley Roofing and Construction is licensed, insured and locally owned in Kirkwood — minutes from ${a.name}. Every ${a.name} job starts with a free, documented inspection and a written scope in plain English, and every roof is backed by our 10-year transferable workmanship warranty.${a.premium ? " On higher-value homes especially, we protect the property throughout and keep the site orderly from the first day to the final walkthrough." : " We manage the site cleanly day to day and finish with a full magnetic nail-sweep."}`),
+      P("Local, licensed and documented", `${areaLocality(a)}. Every ${a.name} job starts with a free, documented inspection and a written scope in plain English, and every roof is backed by our 10-year transferable workmanship warranty.${a.premium ? " On higher-value homes especially, we protect the property throughout and keep the site orderly from the first day to the final walkthrough." : " We manage the site cleanly day to day and finish with a full magnetic nail-sweep."}`),
       LIST("Nearby areas we serve", nearby),
       FAQ([
         [`Do you offer free roof inspections in ${a.name}?`, "Yes — every inspection is free, documented with photos, and yours to keep with no obligation."],
