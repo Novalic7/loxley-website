@@ -1616,6 +1616,13 @@ html.reveal-on [data-reveal].is-revealed {
 .quickpaths-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 @media (max-width: 900px) { .quickpaths-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .quickpaths-grid { grid-template-columns: 1fr; } }
+/* The homepage router now holds five cards (roofing, storm, commercial,
+   holiday lighting, free inspection) — five-up on desktop, stepping down
+   gracefully. Scoped to .quickpaths so the 3-up .morepaths grid is unaffected. */
+.quickpaths .quickpaths-grid { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 1100px) { .quickpaths .quickpaths-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .quickpaths .quickpaths-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .quickpaths .quickpaths-grid { grid-template-columns: 1fr; } }
 .qp-card {
   display: flex; flex-direction: column; gap: 0.5rem;
   padding: 1.6rem 1.4rem; border: 1px solid var(--line-soft); border-radius: 4px;
