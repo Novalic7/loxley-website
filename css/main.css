@@ -45,7 +45,7 @@
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; } /* offset in-page anchors below the fixed header */
 html:focus-within { scroll-behavior: smooth; }
 body {
   background: var(--ink);
@@ -310,6 +310,10 @@ html.reveal-on [data-reveal].is-revealed {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  /* Reserve the fixed header's height so the top of the hero (the eyebrow) never
+     slides under the header on short viewports. Absorbed into the empty top space
+     on tall screens, so desktop is unchanged. */
+  padding-top: clamp(96px, 14vh, 130px);
   overflow: hidden;
   isolation: isolate;
 }
