@@ -1630,6 +1630,16 @@ html.reveal-on [data-reveal].is-revealed {
 .qp-accent:hover { border-color: var(--brand-red); }
 .qp-accent .qp-cta { color: var(--brand-red-hi); }
 
+/* "More than a roof" — surfaces construction / renovation / holiday lighting.
+   Reuses the .qp-card visual language; three-up on desktop. */
+.morepaths { padding: clamp(3rem, 7vw, 5.5rem) var(--gutter) clamp(1rem, 3vw, 2rem); max-width: 92rem; margin-inline: auto; }
+.morepaths-head { max-width: 44rem; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
+.morepaths-head .eyebrow { color: var(--brand-green-hi); }
+.morepaths-head h2 { margin: .3rem 0 .5rem; }
+.morepaths-head .lede { color: var(--stone); }
+.morepaths-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .morepaths-grid { grid-template-columns: 1fr; } }
+
 .stormband { background: var(--charcoal); border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
 .stormband-inner {
   max-width: 92rem; margin-inline: auto; padding: 1.4rem var(--gutter);
