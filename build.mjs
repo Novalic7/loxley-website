@@ -446,7 +446,6 @@ function guarantees() {
         <div class="guarantee-grid">
 ${g.map(x => `          <div class="guarantee"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("\n")}
         </div>
-        <p class="content-note">Guarantee wording is a working draft — final terms come from the Holiday Lighting Division Plan. Confirm before publishing.</p>
       </section>`;
 }
 
@@ -465,7 +464,6 @@ const NOTE = (t) => `      <section class="prose"><p class="content-note">${t}</
 const skeleton = (what) => [
   P("What Loxley does", `We approach every ${what} as a complete system — the deck, the water barrier, ventilation, flashing and finish work all matter. You get a documented inspection, clear options, and workmanship backed by our 10-year transferable warranty.`),
   LIST("Our process", ["Free, documented inspection with photos", "A written scope and honest options — repair vs. replace", "Professional installation with clean daily site management", "Final walkthrough, cleanup, and warranty registration"]),
-  NOTE("Detailed pricing guidance and project photos for this service are being added. Call us for a straight answer on your specific property."),
   FAQ([
     ["Do you offer free inspections?", "Yes — every inspection is free and no-obligation, with photos you keep."],
     ["Are you licensed and insured?", "Yes. We are licensed and fully insured, and locally owned in Kirkwood, MO."]
@@ -723,8 +721,7 @@ function areaPage(a) {
       FAQ([
         [`Do you offer free roof inspections in ${a.name}?`, "Yes — every inspection is free, documented with photos, and yours to keep with no obligation."],
         [`Can you help with a storm or insurance claim in ${a.name}?`, `Yes. After Missouri hail and wind we document the damage and walk the claim with you — see our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`]
-      ]),
-      NOTE(`We add real ${a.name} project photos as jobs complete. In the meantime, call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> for a free, documented assessment.`)
+      ])
     ];
   }
   return {
@@ -912,8 +909,7 @@ const PAGES = [
         ["Should I file a claim before or after an inspection?", "Get a free inspection first. You'll know whether you have real, claimable damage before you put anything on your record."],
         ["Will you meet my insurance adjuster on the roof?", "Yes. Having a roofer present who can point out and document damage often makes the difference on scope."],
         ["Do I have to use you if you inspect it?", "No. The inspection and the photo report are free and yours to keep, no obligation."]
-      ]),
-      NOTE("Real St. Louis-area storm photos (before/after) are being added to this page.")
+      ])
     ].join("\n")
   },
   {
@@ -1033,8 +1029,7 @@ ${LIST("What each stage protects", [
         ["Do we need a full replacement, or can the roof be repaired or restored?", "It depends on the membrane's age and condition. We inspect and document the roof first, then give you an honest repair, restoration or replacement recommendation — we don't default to the most expensive option."],
         [`Do you handle commercial storm and hail claims?`, `Yes. We document the damage, provide the photos and scope your insurer needs, and can meet the adjuster on site. See our <a href="/roofing/insurance-claims/">insurance claims guide</a>.`],
         ["Are you licensed and insured for commercial work?", "Yes — licensed and fully insured, and locally owned in Kirkwood, MO."]
-      ]),
-      NOTE(`Commercial project photos and references are being added. Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> to discuss your building and get a documented assessment.`)
+      ])
     ].join("\n")
   },
   {
@@ -1067,8 +1062,7 @@ ${LIST("What each stage protects", [
         ["Are gutter guards worth it?", "For homes under trees, good guards meaningfully cut down on clogs and dangerous ladder work. We'll tell you honestly whether they make sense for your property rather than upselling them by default."],
         ["Can you replace rotted fascia and soffit?", "Yes. We repair or replace damaged fascia and soffit as part of the job, so your new gutters mount on sound wood and your attic keeps the ventilation it needs."],
         ["Do you offer free inspections?", "Yes — every inspection is free, documented with photos, and yours to keep with no obligation."]
-      ]),
-      NOTE(`Real photos of our gutter and exterior work are being added. Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> for a free, documented assessment.`)
+      ])
     ].join("\n")
   },
   {
@@ -1137,8 +1131,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
         [`Do you also handle the roof, gutters and exterior?`, `Yes. A renovation is a natural time to address the <a href="/roofing/">roof</a>, <a href="/gutters-and-exteriors/">gutters and exterior</a> — and that's our core trade, so it's all under one roof.`],
         ["Are you licensed and insured for this work?", "Yes — licensed and fully insured, and locally owned in Kirkwood, MO."],
         ["How do you keep a renovation on schedule and on budget?", "With a written scope and finish selections made up front, plus documented daily management. Deciding the details before demolition is what prevents the delays and change-order surprises renovations are known for."]
-      ]),
-      NOTE(`We're building out a gallery of completed Loxley renovation projects. In the meantime, call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> or request a <a href="/contact/">consultation</a> to talk through your kitchen or home renovation.`)
+      ])
     ].join("\n")
   },
   {
@@ -1157,8 +1150,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
           <figure class="work-item"><img src="/assets/images/work/project-3.webp" loading="lazy" decoding="async" alt="Aerial view of a home in a wooded subdivision with a completed green shingle roof"><figcaption>Completed shingle roof in a wooded subdivision.</figcaption></figure>
           <figure class="work-item"><img src="/assets/images/work/project-1.webp" loading="lazy" decoding="async" alt="Roofing crew restoring the low-slope roof of a historic St. Louis brick building with a slate mansard"><figcaption>Flat-roof restoration on a historic St. Louis brick building.</figcaption></figure>
         </div>
-      </section>`,
-      NOTE("A handful of recent projects — we'll keep adding as jobs wrap. Want to see work near you? <a href=\"/contact/\">Get in touch</a> and we'll share more.")
+      </section>`
     ].join("\n")
   },
   {
@@ -1219,8 +1211,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
       FAQ([
         ["Do you offer monthly payment plans?", "We're finalizing contractor-financing partners to offer monthly plans directly. Call us and we'll walk you through the current options for your project."],
         ["Will insurance cover my roof?", "If the damage is from a covered storm event, often a significant portion is covered. We document the damage and help you navigate the claim."]
-      ]),
-      NOTE("Financing terms shown here will be finalized once a lending partner is signed. For now, call " + BIZ.phoneDisplay + " to discuss options — no obligation.")
+      ])
     ].join("\n")
   },
   {
@@ -1304,8 +1295,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
         "<strong>Season-long maintenance</strong> — a bulb goes out, we fix it (Stay-Lit Guarantee).",
         "<strong>Takedown &amp; storage</strong> — we remove, label and store everything for next year (Takedown Guarantee)."
       ]),
-      guarantees(),
-      NOTE("Timeline detail and add-ons (trees, bushes, wreaths, garland) will be finalized from the Holiday Lighting Division Plan.")
+      guarantees()
     ].join("\n")
   },
   {
@@ -1325,8 +1315,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
         <div class="price-card"><h3>Full Display</h3><p>The whole home — rooflines, landscape, wreaths, garland and more.</p><p class="price-figure">Custom quote</p></div>
       </div></section>`,
       P("What every package includes", "Design, commercial-grade lights custom-cut to your home, professional installation, season-long maintenance, and takedown with storage — all covered by our three guarantees."),
-      guarantees(),
-      NOTE("Exact package prices and early-bird amounts come from the Holiday Lighting Division Plan — the structure is built; the figures are left for you to confirm. Early-bird pricing ends October 15; booking closes mid-November.")
+      guarantees()
     ].join("\n")
   },
   {
@@ -1339,9 +1328,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     ctaHeading: "Want your home to look like this?",
     ctaText: "Book a free design consult and we'll design, install, maintain, take down and store your holiday lighting — start to finish.",
     ctaButton: "Book a Design Consult",
-    body: [
-      NOTE("Photos of completed Loxley holiday lighting installs will be featured here. We only show real work — add photos once the first installs are done.")
-    ].join("\n")
+    body: ""
   }
 ];
 
