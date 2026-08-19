@@ -52,6 +52,7 @@ const BIZ = {
   lat: 38.5734941,
   lng: -90.394012,
   gbp: "https://maps.app.goo.gl/i1ZWHzdubEDsrrwT8",
+  calendly: "https://calendly.com/nova-theloxleycorp/30min",
   bbbProfile: "" // TODO: paste the BBB Accredited Business profile URL to link the seal
 };
 
@@ -1219,12 +1220,18 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     description: "Contact Loxley Roofing and Construction for a free, no-obligation roof inspection in the St. Louis metro and St. Charles County. Call (314) 906-6915.",
     h1: "Let's take a closer look at your roof.",
     intro: "Free, no-obligation inspections across the St. Louis metro and St. Charles County.",
-    scripts: ["/js/form.js"],
+    scripts: ["/js/form.js", "/js/calendly.js"],
     body: [
       `      <section class="prose">
         <h2>Talk to Loxley</h2>
         <p>Call <a href="tel:${BIZ.phone}">${BIZ.phoneDisplay}</a> or email <a href="mailto:${BIZ.email}">${BIZ.email}</a>. We'll document your roof, explain your options in plain English, and give you a clear path forward — no pressure.</p>
         <p><strong>${BIZ.name}</strong><br>${BIZ.street}, ${BIZ.city}, ${BIZ.region} ${BIZ.zip}<br>Mon–Fri: 7:00&nbsp;AM – 5:00&nbsp;PM</p>
+      </section>`,
+      `      <section class="prose schedule-block">
+        <h2>Book online — pick your time</h2>
+        <p>Rather grab a slot yourself? Choose a 30-minute appointment that works for you and we'll take it from there — no phone tag.</p>
+        <p><button type="button" class="btn btn-solid btn-schedule" data-calendly="${BIZ.calendly}?primary_color=17a81a" aria-haspopup="dialog">Schedule Online</button></p>
+        <p class="schedule-or">Prefer to send details first? Fill out the form below and we'll reach out.</p>
       </section>`,
       contactForm()
     ].join("\n")
