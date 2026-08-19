@@ -53,6 +53,7 @@ const BIZ = {
   lng: -90.394012,
   gbp: "https://maps.app.goo.gl/i1ZWHzdubEDsrrwT8",
   calendly: "https://calendly.com/nova-theloxleycorp/30min",
+  calendlyHoliday: "https://calendly.com/nova-theloxleycorp/holiday-lights-estimate",
   bbbProfile: "" // TODO: paste the BBB Accredited Business profile URL to link the seal
 };
 
@@ -160,6 +161,19 @@ function trustbar() {
   </section>`;
 }
 
+// Primary call-to-action button. If the page sets `calendly`, the button opens
+// that Calendly scheduling popup (js/calendly.js handles [data-calendly]);
+// otherwise it links to the contact form. Used by the hero and the CTA band so
+// both honor a page's scheduling link (e.g. the holiday-lighting pages book
+// through the holiday-lights estimate link instead of the general form).
+function primaryCta(page, label, extraClass) {
+  const cls = `btn btn-solid${extraClass ? " " + extraClass : ""}`;
+  if (page && page.calendly) {
+    return `<button type="button" class="${cls}" data-calendly="${page.calendly}?primary_color=17a81a" aria-haspopup="dialog">${label}</button>`;
+  }
+  return `<a class="${cls}" href="/contact/">${label}</a>`;
+}
+
 // Closing CTA band. Defaults speak to roofing/inspection (correct for the
 // roofing pages, which are most of the site); non-roofing service pages pass
 // ctaHeading / ctaText / ctaButton so the verbiage is oriented to that service
@@ -173,7 +187,7 @@ function ctaBand(page) {
       <h2 class="display">${heading}</h2>
       <p>${text}</p>
       <div class="page-cta-actions">
-        <a class="btn btn-solid" href="/contact/">${button}</a>
+        ${primaryCta(page, button)}
         <a class="btn btn-ghost" href="tel:${BIZ.phone}">Call ${BIZ.phoneDisplay}</a>
       </div>
     </div>
@@ -352,7 +366,7 @@ ${page.heroVideo ? heroVideo(page.heroVideo) + "\n" : page.heroImage ? heroImage
         <h1 class="display">${page.h1}</h1>
         ${page.intro ? `<p class="lede">${page.intro}</p>` : ""}
         <div class="page-hero-actions">
-          <a class="btn btn-solid" href="/contact/">${page.heroCta || "Free Inspection"}</a>
+          ${primaryCta(page, page.heroCta || "Free Inspection")}
           <a class="btn btn-ghost" href="tel:${BIZ.phone}">Call ${BIZ.phoneDisplay}</a>
         </div>
       </div>
@@ -363,7 +377,7 @@ ${ctaBand(page)}
   </main>
 ${footer()}
 ${mobileCallbar()}
-${["/js/nav.js", "/js/track.js", ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
+${["/js/nav.js", "/js/track.js", ...(page.calendly ? ["/js/calendly.js"] : []), ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
 </body>
 </html>
 `;
@@ -1263,6 +1277,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     intro: "We're the roofers. We're not going to hurt your roof — we warranty it. Let us light your home for the holidays, start to finish.",
     heroVideo: { mp4: "/assets/video/holiday-lights.mp4", poster: "/assets/video/holiday-lights-poster.jpg" },
     heroCta: "Get a Free Design Consult",
+    calendly: BIZ.calendlyHoliday,
     ctaHeading: "Book your holiday lighting design consult",
     ctaText: "We'll design a display for your home, handle the install, maintenance, takedown and storage, and give you a clear quote up front — you never touch a ladder.",
     ctaButton: "Book a Design Consult",
@@ -1291,6 +1306,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     eyebrow: "Loxley Holiday Lighting",
     intro: "Five steps, and zero ladders for you.",
     heroCta: "Get a Free Design Consult",
+    calendly: BIZ.calendlyHoliday,
     ctaHeading: "Ready to light up your home this season?",
     ctaText: "Book a free design consult and we'll handle the rest — design, install, season-long maintenance, takedown and storage.",
     ctaButton: "Book a Design Consult",
@@ -1312,6 +1328,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     eyebrow: "Loxley Holiday Lighting",
     intro: "Simple packages — all fully installed, maintained, taken down and stored.",
     heroCta: "Get a Free Design Consult",
+    calendly: BIZ.calendlyHoliday,
     ctaHeading: "Lock in early-bird pricing before October 15",
     ctaText: "Book a free design consult and reserve your install date — every package is fully designed, installed, maintained, taken down and stored.",
     ctaButton: "Book a Design Consult",
@@ -1332,6 +1349,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     eyebrow: "Loxley Holiday Lighting",
     intro: "Real homes, professionally lit.",
     heroCta: "Get a Free Design Consult",
+    calendly: BIZ.calendlyHoliday,
     ctaHeading: "Want your home to look like this?",
     ctaText: "Book a free design consult and we'll design, install, maintain, take down and store your holiday lighting — start to finish.",
     ctaButton: "Book a Design Consult",
