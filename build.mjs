@@ -326,8 +326,29 @@ function analytics() {
   </script>`;
 }
 
+// Keep the SEO meta description within Google's ~160-char display window without
+// hand-trimming every page: keep whole sentences up to ~158 chars (our
+// descriptions read "main sentence. Trust sentence.", so the trailing clause
+// drops cleanly), falling back to a word-boundary cut only if one sentence is
+// already too long. OG/social descriptions keep the full text.
+function metaDescription(d) {
+  d = String(d).trim();
+  if (d.length <= 160) return d;
+  const sentences = d.match(/[^.!?]+[.!?]+/g) || [d];
+  let out = "";
+  for (const s of sentences) {
+    if ((out + s).trim().length > 158) break;
+    out += s;
+  }
+  out = out.trim();
+  if (!out) out = d.slice(0, 157).replace(/\s+\S*$/, "").trim();
+  return out;
+}
+
 function layout(page) {
-  const title = `${page.title} | ${BIZ.name}`;
+  // Short brand suffix keeps titles under Google's ~60-char display limit while
+  // still front-loading each page's unique, keyword-rich title.
+  const title = `${page.title} | Loxley Roofing`;
   const canonical = SITE + page.url;
   return `<!DOCTYPE html>
 <html lang="en">
@@ -336,7 +357,7 @@ function layout(page) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
 ${analytics()}
   <title>${title}</title>
-  <meta name="description" content="${page.description}">
+  <meta name="description" content="${metaDescription(page.description)}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="${canonical}">
   <link rel="icon" href="/assets/brand/favicon-dark-96.png" type="image/png">
@@ -741,7 +762,7 @@ function areaPage(a) {
   }
   return {
     url,
-    title: `${a.name}, MO Roofing & Exterior Services`,
+    title: `Roofing & Exteriors in ${a.name}, MO`,
     description: a.desc,
     h1: `${a.name} Roofing & Exterior Services`,
     intro: a.intro,
@@ -758,7 +779,7 @@ function serviceAreasHub() {
   const stlCities = AREAS.filter(x => x.region === "stl" && !x.kind);
   const stcCities = AREAS.filter(x => x.region === "stc" && !x.kind);
   return {
-    url: "/service-areas/", title: "Service Areas — St. Louis Metro & St. Charles County",
+    url: "/service-areas/", title: "Service Areas — Greater St. Louis",
     description: "Roofing, storm restoration, gutters and construction across St. Louis County, St. Charles County and St. Louis City — local, licensed, warrantied.",
     h1: "Where We Work",
     intro: "Based in Kirkwood, serving St. Louis County, the City of St. Louis and St. Charles County — with a dedicated page and documented, warrantied work for each community.",
@@ -989,7 +1010,7 @@ const PAGES = [
     ].join("\n")
   },
   {
-    url: "/roofing/roofing-systems/", title: "How a Roof Is Installed — 7 Stages | St. Louis",
+    url: "/roofing/roofing-systems/", title: "How a Roof Is Installed — 7 Stages",
     description: "See how Loxley installs a roof in the St. Louis metro — inspection, tear-off, ice & water shield, drip edge, shingles, ridge vent and final cleanup, stage by stage.",
     h1: "How We Install a Roof",
     intro: "Scroll through the seven stages of a Loxley roof replacement — built for the home you already have.",
@@ -1081,7 +1102,7 @@ ${LIST("What each stage protects", [
     ].join("\n")
   },
   {
-    url: "/construction/", title: "Construction in St. Louis — Ground to Finish",
+    url: "/construction/", title: "Construction in St. Louis, MO",
     description: "See a St. Louis home come together ground to finish — site prep, foundation, framing, roofing, envelope, mechanicals and interior finishes — the Loxley construction standard.",
     h1: "From the Ground Up",
     intro: "The same planning, documentation and standards we bring to roofing, applied to the whole build. Scroll the sequence, stage by stage.",
@@ -1169,7 +1190,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     ].join("\n")
   },
   {
-    url: "/reviews/", title: "Reviews — Loxley Roofing and Construction",
+    url: "/reviews/", title: "Reviews",
     description: "See what St. Louis-area homeowners say about Loxley Roofing and Construction — 4.9 stars on Google.",
     h1: "Reviews",
     intro: "Rated 4.9 on Google by St. Louis-area homeowners.",
@@ -1185,7 +1206,7 @@ ${NOTE("The images above are rendered illustrations of the construction process,
     ].join("\n")
   },
   {
-    url: "/about/", title: "About — Loxley Roofing and Construction",
+    url: "/about/", title: "About Our St. Louis Roofing Team",
     description: "Loxley Roofing and Construction is a licensed, locally owned roofing and exterior contractor in Kirkwood, MO. See the anatomy of a better build — how we build and roof as one complete system.",
     h1: "About Loxley",
     intro: "Locally owned in Kirkwood, MO — built on documentation, communication and long-term protection.",
@@ -1270,7 +1291,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     ].join("\n")
   },
   {
-    url: "/holiday-lighting/", title: "Holiday Lighting in St. Louis, Installed by Roofers",
+    url: "/holiday-lighting/", title: "Holiday Lighting in St. Louis",
     description: "Professional Christmas & holiday light installation across the St. Louis metro — designed, installed, maintained, taken down and stored by roofers who warranty your roof.",
     h1: "Holiday Lighting, Installed by Roofers",
     eyebrow: "Loxley Holiday Lighting · St. Louis",
@@ -1300,7 +1321,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     ].join("\n")
   },
   {
-    url: "/holiday-lighting/how-it-works/", title: "How Our Holiday Lighting Works | St. Louis",
+    url: "/holiday-lighting/how-it-works/", title: "How Our Holiday Lighting Works",
     description: "From free design consult to takedown and storage — here's how Loxley's professional holiday lighting service works in the St. Louis metro.",
     h1: "How It Works",
     eyebrow: "Loxley Holiday Lighting",
@@ -1322,7 +1343,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     ].join("\n")
   },
   {
-    url: "/holiday-lighting/pricing/", title: "Holiday Lighting Pricing & Packages | St. Louis",
+    url: "/holiday-lighting/pricing/", title: "Holiday Lighting Pricing & Packages",
     description: "Holiday lighting packages for St. Louis-area homes — roofline, roofline plus landscape, and full displays. Early-bird pricing ends October 15.",
     h1: "Pricing & Packages",
     eyebrow: "Loxley Holiday Lighting",
@@ -1343,7 +1364,7 @@ ${NOTE("The stages above are rendered illustrations used to explain how a build 
     ].join("\n")
   },
   {
-    url: "/holiday-lighting/gallery/", title: "Holiday Lighting Gallery | St. Louis",
+    url: "/holiday-lighting/gallery/", title: "Holiday Lighting Gallery",
     description: "See Loxley's professional holiday lighting installations across the St. Louis metro.",
     h1: "Holiday Lighting Gallery",
     eyebrow: "Loxley Holiday Lighting",
