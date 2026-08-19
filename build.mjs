@@ -52,6 +52,8 @@ const BIZ = {
   lat: 38.5734941,
   lng: -90.394012,
   gbp: "https://maps.app.goo.gl/i1ZWHzdubEDsrrwT8",
+  ratingValue: "4.9", // Google rating — keep in sync with the GBP + on-page trustbar
+  reviewCount: "52",
   calendly: "https://calendly.com/nova-theloxleycorp/30min",
   calendlyHoliday: "https://calendly.com/nova-theloxleycorp/holiday-lights-estimate",
   bbbProfile: "" // TODO: paste the BBB Accredited Business profile URL to link the seal
@@ -153,7 +155,7 @@ ${drawerHtml}
 function trustbar() {
   return `  <section class="trustbar" aria-label="Why St. Louis homeowners choose Loxley">
     <ul class="trustbar-inner">
-      <li class="tb-rating"><a href="${BIZ.gbp}" target="_blank" rel="noopener noreferrer"><span class="tb-stars" aria-hidden="true">★★★★★</span> <span><strong>4.9</strong> Google Rating</span></a></li>
+      <li class="tb-rating"><a href="${BIZ.gbp}" target="_blank" rel="noopener noreferrer"><span class="tb-stars" aria-hidden="true">★★★★★</span> <span><strong>${BIZ.ratingValue}</strong> Google Rating · ${BIZ.reviewCount} reviews</span></a></li>
       <li>Licensed &amp; Insured</li>
       <li>10-Year Transferable Workmanship Warranty</li>
       <li>Locally Owned · Kirkwood, MO</li>
@@ -275,8 +277,14 @@ function schema(page) {
     "areaServed": page.areaServed || ["St. Louis County, MO", "St. Charles County, MO", "St. Louis, MO", "Kirkwood, MO", "Clayton, MO", "Ladue, MO", "Webster Groves, MO", "Chesterfield, MO", "Ballwin, MO", "Wildwood, MO", "Des Peres, MO", "Town and Country, MO", "O'Fallon, MO", "St. Charles, MO", "St. Peters, MO"],
     "openingHours": "Mo-Fr 07:00-17:00",
     "priceRange": "$$",
-    "sameAs": [BIZ.gbp]
-    // TODO: add "aggregateRating" once the exact Google review COUNT is confirmed.
+    "sameAs": [BIZ.gbp],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": BIZ.ratingValue,
+      "reviewCount": BIZ.reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   };
   let out = `  <script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n  </script>`;
   // Area pages carry a BreadcrumbList (Home › Service Areas › <Area>) for richer
@@ -1191,9 +1199,9 @@ ${NOTE("The images above are rendered illustrations of the construction process,
   },
   {
     url: "/reviews/", title: "Reviews",
-    description: "See what St. Louis-area homeowners say about Loxley Roofing and Construction — 4.9 stars on Google.",
+    description: "See what St. Louis-area homeowners say about Loxley Roofing and Construction — 4.9 stars across 52 Google reviews.",
     h1: "Reviews",
-    intro: "Rated 4.9 on Google by St. Louis-area homeowners.",
+    intro: "Rated 4.9 on Google across 52 reviews by St. Louis-area homeowners.",
     scripts: ["/js/reviews-filter.js"],
     body: [
       // Featurable widget — auto-updating Google reviews (external embed).
