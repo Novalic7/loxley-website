@@ -308,7 +308,7 @@ function schema(page) {
    (in CSS) keeps the hero text fully legible over the footage. */
 function heroVideo(v) {
   return `      <div class="page-hero-media" aria-hidden="true" style="background-image:url('${assetVer(v.poster)}')">
-        <video class="page-hero-video" autoplay muted loop playsinline preload="auto" poster="${assetVer(v.poster)}">
+        <video class="page-hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="${assetVer(v.poster)}" disablepictureinpicture disableremoteplayback>
           <source src="${assetVer(v.mp4)}" type="video/mp4">
         </video>
       </div>`;
@@ -406,7 +406,7 @@ ${ctaBand(page)}
   </main>
 ${footer()}
 ${mobileCallbar()}
-${["/js/nav.js", "/js/track.js", ...(page.calendly ? ["/js/calendly.js"] : []), ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
+${["/js/nav.js", "/js/track.js", ...(page.calendly ? ["/js/calendly.js"] : []), ...(page.heroVideo ? ["/js/hero-video.js"] : []), ...(page.scripts || [])].map(s => `  <script src="${assetVer(s)}" defer></script>`).join("\n")}
 </body>
 </html>
 `;
